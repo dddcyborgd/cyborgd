@@ -3,8 +3,8 @@
   "version": "0.0.1-alpha",
   "global": "CyborgdCore",
   "file": "cyborgd-core.js",
-  "bytes": 105431,
-  "sha256": "521e55ebc89afa882eff0d161889a176b41b251c2d50151f5058e6a524feda43",
+  "bytes": 105636,
+  "sha256": "9bd36cb197adcd8692a7601587cb278135f5e6f2245fb6887947a811ddca5421",
   "modules": [
     {
       "name": "arcball",
@@ -131,7 +131,7 @@
     {
       "name": "snapshot",
       "file": "core/snapshot.mjs",
-      "sha256": "c0908af1edff10b82878b4a99b28aaa846e5f8c056cc6a109ee8efd827b7f686",
+      "sha256": "096343584ebfeb7d3cc731210a3a512e95e691ef2878c4d678e0f2e5791fed3d",
       "exports": [
         "sameEntity",
         "emptySnapshot",

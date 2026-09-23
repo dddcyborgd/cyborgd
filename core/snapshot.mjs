@@ -7,9 +7,10 @@
 // and a SnapshotBuffer, the server-side port of awe examples/multiplayer/shared/snapshot-interpolation.ts
 // (push ignores out-of-order times, same time replaces, sample() brackets renderTime, holds the last
 // state when renderTime runs past the buffer).
-const ENTITY_FIELDS = ['p', 'r', 'a', 's', 'txt', 'arm', 'say', 'v', 'grounded', 'tick', 'updatedAt', 'zone', 'name', 'rank', 'rung', 'role', 'kind', 'type', 'seq'];
+const ENTITY_FIELDS = ['p', 'r', 'a', 's', 'txt', 'arm', 'say', 'v', 'grounded', 'tick', 'updatedAt', 'zone', 'name', 'rank', 'rung', 'role', 'kind', 'type', 'seq', 'field', 'arm'];
 
 function sameVal(a, b) {
+  if (a && b && typeof a === 'object' && !Array.isArray(a) && typeof b === 'object' && !Array.isArray(b)) return JSON.stringify(a) === JSON.stringify(b); // nested objects (field, arm)
   if (a === b) return true;
   if (Array.isArray(a) && Array.isArray(b)) return a.length === b.length && a.every((x, i) => sameVal(x, b[i]));
   if (a && b && typeof a === 'object' && typeof b === 'object') {
