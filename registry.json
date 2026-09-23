@@ -1,0 +1,1280 @@
+{
+  "$schema": "dddcyborgd/cyborgd-registry.v1",
+  "name": "@dddcyborgd/cyborgd",
+  "version": "0.0.1-alpha",
+  "generatedBy": "scripts/library.mjs",
+  "home": "https://github.com/dddcyborgd/cyborgd",
+  "upstream": {
+    "org": "https://github.com/oncyberio",
+    "product": "https://oncyber.io",
+    "docs": "https://docs.oncyber.io"
+  },
+  "lanes": [
+    {
+      "lane": "core",
+      "files": 13,
+      "lines": 1405,
+      "globals": []
+    },
+    {
+      "lane": "daemon",
+      "files": 15,
+      "lines": 1356,
+      "globals": []
+    },
+    {
+      "lane": "registries",
+      "files": 4,
+      "lines": 174,
+      "globals": []
+    },
+    {
+      "lane": "ops",
+      "files": 0,
+      "lines": 0,
+      "globals": []
+    },
+    {
+      "lane": "scripts",
+      "files": 7,
+      "lines": 453,
+      "globals": []
+    },
+    {
+      "lane": "test",
+      "files": 14,
+      "lines": 858,
+      "globals": []
+    },
+    {
+      "lane": "skills",
+      "files": 0,
+      "lines": 0,
+      "globals": []
+    }
+  ],
+  "components": 0,
+  "archive": [
+    {
+      "repo": "oncyberio/oo-game-server-starter",
+      "sha": "d9a11ed8ae16a5f385547cb4ed206c131635b713",
+      "license": "MIT (no LICENSE file; oncyberio repos carry MIT)",
+      "upstream": "https://github.com/oncyberio/oo-game-server-starter/tree/d9a11ed8ae16a5f385547cb4ed206c131635b713",
+      "files": 10,
+      "lines": 631,
+      "tally": {
+        "catalogued": 4,
+        "ported": 6
+      }
+    },
+    {
+      "repo": "oncyberio/game-server-v2",
+      "sha": "e1b0fe16075bda3d4d7d1a2da1fadf01e2cec39f",
+      "license": "MIT",
+      "upstream": "https://github.com/oncyberio/game-server-v2/tree/e1b0fe16075bda3d4d7d1a2da1fadf01e2cec39f",
+      "files": 38,
+      "lines": 4791,
+      "tally": {
+        "catalogued": 23,
+        "partial": 8,
+        "ported": 7
+      }
+    },
+    {
+      "repo": "oncyberio/onchain-cc-server",
+      "sha": "cc5c1de1f44e7fcf73e459ac52ec75aa449151e2",
+      "license": "MIT",
+      "upstream": "https://github.com/oncyberio/onchain-cc-server/tree/cc5c1de1f44e7fcf73e459ac52ec75aa449151e2",
+      "files": 28,
+      "lines": 2907,
+      "tally": {
+        "catalogued": 21,
+        "ported": 7
+      }
+    },
+    {
+      "repo": "oncyberio/awe",
+      "sha": "04a07c8d75c114d8ea217d0870eeef2c6a65635a",
+      "license": "MIT",
+      "upstream": "https://github.com/oncyberio/awe/tree/04a07c8d75c114d8ea217d0870eeef2c6a65635a",
+      "files": 38,
+      "lines": 4077,
+      "tally": {
+        "reference": 13,
+        "ported": 25
+      }
+    }
+  ],
+  "detail": {
+    "lanes": [
+      {
+        "lane": "core",
+        "files": 13,
+        "lines": 1405,
+        "globals": [],
+        "entries": [
+          {
+            "path": "core/aivatar.mjs",
+            "lines": 175,
+            "bytes": 10108,
+            "globals": [],
+            "banner": "cyborgd — aivatar · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/arcball.mjs",
+            "lines": 88,
+            "bytes": 5317,
+            "globals": [],
+            "banner": "cyborgd — arcball · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/index.mjs",
+            "lines": 31,
+            "bytes": 1776,
+            "globals": [],
+            "banner": "cyborgd — core index · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/ladder.mjs",
+            "lines": 43,
+            "bytes": 2748,
+            "globals": [],
+            "banner": "cyborgd — ladder · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/protocol.mjs",
+            "lines": 149,
+            "bytes": 8320,
+            "globals": [],
+            "banner": "cyborgd — protocol · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/riddle.mjs",
+            "lines": 130,
+            "bytes": 8807,
+            "globals": [],
+            "banner": "cyborgd — riddle · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/rooms.mjs",
+            "lines": 228,
+            "bytes": 15684,
+            "globals": [],
+            "banner": "cyborgd — rooms · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/seed.mjs",
+            "lines": 33,
+            "bytes": 1598,
+            "globals": [],
+            "banner": "cyborgd — seed · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/sim.mjs",
+            "lines": 100,
+            "bytes": 6076,
+            "globals": [],
+            "banner": "cyborgd — sim · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/snapshot.mjs",
+            "lines": 119,
+            "bytes": 5833,
+            "globals": [],
+            "banner": "cyborgd — snapshot · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/transport.mjs",
+            "lines": 87,
+            "bytes": 4475,
+            "globals": [],
+            "banner": "cyborgd — transport · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/triad.mjs",
+            "lines": 126,
+            "bytes": 8033,
+            "globals": [],
+            "banner": "cyborgd — triad · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "core/zones.mjs",
+            "lines": 96,
+            "bytes": 4153,
+            "globals": [],
+            "banner": "cyborgd — zones · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          }
+        ]
+      },
+      {
+        "lane": "daemon",
+        "files": 15,
+        "lines": 1356,
+        "globals": [],
+        "entries": [
+          {
+            "path": "daemon/claim.mjs",
+            "lines": 65,
+            "bytes": 3722,
+            "globals": [],
+            "banner": "cyborgd — claim · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/cyborgd.mjs",
+            "lines": 236,
+            "bytes": 16309,
+            "globals": [],
+            "banner": "cyborgd — daemon entry · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/ethers.mjs",
+            "lines": 29,
+            "bytes": 1663,
+            "globals": [],
+            "banner": "cyborgd — ethers loader · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/faucet.mjs",
+            "lines": 82,
+            "bytes": 6108,
+            "globals": [],
+            "banner": "cyborgd — faucet · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/http.mjs",
+            "lines": 78,
+            "bytes": 4692,
+            "globals": [],
+            "banner": "cyborgd — http · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/pow.mjs",
+            "lines": 65,
+            "bytes": 3168,
+            "globals": [],
+            "banner": "cyborgd — pow · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/protocol.mjs",
+            "lines": 5,
+            "bytes": 352,
+            "globals": [],
+            "banner": "cyborgd — protocol (re-export) · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/rate.mjs",
+            "lines": 82,
+            "bytes": 4116,
+            "globals": [],
+            "banner": "cyborgd — rate · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/runspace.mjs",
+            "lines": 90,
+            "bytes": 5693,
+            "globals": [],
+            "banner": "cyborgd — runspace · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/signaling.mjs",
+            "lines": 113,
+            "bytes": 7637,
+            "globals": [],
+            "banner": "cyborgd — signaling · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/spaces.mjs",
+            "lines": 92,
+            "bytes": 5578,
+            "globals": [],
+            "banner": "cyborgd — spaces · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/state.mjs",
+            "lines": 67,
+            "bytes": 3572,
+            "globals": [],
+            "banner": "cyborgd — state · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/vault.mjs",
+            "lines": 64,
+            "bytes": 3592,
+            "globals": [],
+            "banner": "cyborgd — vault · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/voucher.mjs",
+            "lines": 78,
+            "bytes": 7347,
+            "globals": [],
+            "banner": "cyborgd — voucher · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "daemon/ws.mjs",
+            "lines": 210,
+            "bytes": 10915,
+            "globals": [],
+            "banner": "cyborgd — ws · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          }
+        ]
+      },
+      {
+        "lane": "registries",
+        "files": 4,
+        "lines": 174,
+        "globals": [],
+        "entries": [
+          {
+            "path": "registries/chains.json",
+            "lines": 11,
+            "bytes": 1406,
+            "globals": [],
+            "banner": ""
+          },
+          {
+            "path": "registries/faucet-tokens.json",
+            "lines": 49,
+            "bytes": 4185,
+            "globals": [],
+            "banner": ""
+          },
+          {
+            "path": "registries/riddles.json",
+            "lines": 18,
+            "bytes": 3060,
+            "globals": [],
+            "banner": ""
+          },
+          {
+            "path": "registries/rooms.json",
+            "lines": 96,
+            "bytes": 7020,
+            "globals": [],
+            "banner": ""
+          }
+        ]
+      },
+      {
+        "lane": "ops",
+        "files": 0,
+        "lines": 0,
+        "globals": [],
+        "entries": []
+      },
+      {
+        "lane": "scripts",
+        "files": 7,
+        "lines": 453,
+        "globals": [],
+        "entries": [
+          {
+            "path": "scripts/build-core.mjs",
+            "lines": 103,
+            "bytes": 8841,
+            "globals": [],
+            "banner": "cyborgd — build-core · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "scripts/doc-js.mjs",
+            "lines": 53,
+            "bytes": 3397,
+            "globals": [],
+            "banner": "doc-js.mjs — the .js.xml sidecar generator (port of DeltaVerse scripts/doc-js-layer.mjs, repo-agnostic)."
+          },
+          {
+            "path": "scripts/doc-js.rules.json",
+            "lines": 51,
+            "bytes": 1593,
+            "globals": [],
+            "banner": ""
+          },
+          {
+            "path": "scripts/fetch-upstream.mjs",
+            "lines": 97,
+            "bytes": 5249,
+            "globals": [],
+            "banner": "fetch-upstream.mjs — vendor upstream sources by pinned commit, one tarball per repo (rate-limit kind)."
+          },
+          {
+            "path": "scripts/library.mjs",
+            "lines": 91,
+            "bytes": 8198,
+            "globals": [],
+            "banner": "library.mjs — the dvengine catalogue generator (mirror of DeltaVerse scripts/oncyber-awe.mjs)."
+          },
+          {
+            "path": "scripts/ports.json",
+            "lines": 15,
+            "bytes": 1513,
+            "globals": [],
+            "banner": ""
+          },
+          {
+            "path": "scripts/seal-signer.mjs",
+            "lines": 43,
+            "bytes": 3122,
+            "globals": [],
+            "banner": "cyborgd — seal-signer · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          }
+        ]
+      },
+      {
+        "lane": "test",
+        "files": 14,
+        "lines": 858,
+        "globals": [],
+        "entries": [
+          {
+            "path": "test/aivatar.test.mjs",
+            "lines": 112,
+            "bytes": 8345,
+            "globals": [],
+            "banner": "cyborgd — test aivatar · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/arcball.test.mjs",
+            "lines": 63,
+            "bytes": 4258,
+            "globals": [],
+            "banner": "cyborgd — test arcball · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/claim.test.mjs",
+            "lines": 54,
+            "bytes": 3562,
+            "globals": [],
+            "banner": "cyborgd — test claim · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/core-isomorphic.test.mjs",
+            "lines": 46,
+            "bytes": 3133,
+            "globals": [],
+            "banner": "cyborgd — test core-isomorphic · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/faucet.test.mjs",
+            "lines": 75,
+            "bytes": 6694,
+            "globals": [],
+            "banner": "cyborgd — test faucet · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/protocol.test.mjs",
+            "lines": 61,
+            "bytes": 4217,
+            "globals": [],
+            "banner": "cyborgd — test protocol · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/rooms.test.mjs",
+            "lines": 77,
+            "bytes": 5688,
+            "globals": [],
+            "banner": "cyborgd — test rooms · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/signaling.test.mjs",
+            "lines": 58,
+            "bytes": 3903,
+            "globals": [],
+            "banner": "cyborgd — test signaling · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/sim.test.mjs",
+            "lines": 70,
+            "bytes": 4831,
+            "globals": [],
+            "banner": "cyborgd — test sim · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/state.test.mjs",
+            "lines": 51,
+            "bytes": 4122,
+            "globals": [],
+            "banner": "cyborgd — test state · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/triad.test.mjs",
+            "lines": 56,
+            "bytes": 5331,
+            "globals": [],
+            "banner": "cyborgd — test triad · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/vault.test.mjs",
+            "lines": 23,
+            "bytes": 1606,
+            "globals": [],
+            "banner": "cyborgd — test vault · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/voucher.test.mjs",
+            "lines": 41,
+            "bytes": 4083,
+            "globals": [],
+            "banner": "cyborgd — test voucher · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/ws.test.mjs",
+            "lines": 71,
+            "bytes": 3970,
+            "globals": [],
+            "banner": "cyborgd — test ws · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          }
+        ]
+      },
+      {
+        "lane": "skills",
+        "files": 0,
+        "lines": 0,
+        "globals": [],
+        "entries": []
+      }
+    ],
+    "archive": [
+      {
+        "repo": "oncyberio/oo-game-server-starter",
+        "sha": "d9a11ed8ae16a5f385547cb4ed206c131635b713",
+        "license": "MIT (no LICENSE file; oncyberio repos carry MIT)",
+        "upstream": "https://github.com/oncyberio/oo-game-server-starter/tree/d9a11ed8ae16a5f385547cb4ed206c131635b713",
+        "files": 10,
+        "lines": 631,
+        "tally": {
+          "catalogued": 4,
+          "ported": 6
+        },
+        "entries": [
+          {
+            "path": "archive/oo-game-server-starter/README.md",
+            "lines": 212,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/oo-game-server-starter/package.json",
+            "lines": 21,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/oo-game-server-starter/partykit.json",
+            "lines": 9,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/oo-game-server-starter/src/room.ts",
+            "lines": 138,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · core/protocol.mjs"
+          },
+          {
+            "path": "archive/oo-game-server-starter/src/rooms.ts",
+            "lines": 127,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · core/protocol.mjs"
+          },
+          {
+            "path": "archive/oo-game-server-starter/src/server.ts",
+            "lines": 5,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · core/protocol.mjs"
+          },
+          {
+            "path": "archive/oo-game-server-starter/src/types/Player.ts",
+            "lines": 20,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · core/protocol.mjs"
+          },
+          {
+            "path": "archive/oo-game-server-starter/src/types/RoomState.ts",
+            "lines": 36,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · core/protocol.mjs"
+          },
+          {
+            "path": "archive/oo-game-server-starter/src/types/utils.ts",
+            "lines": 42,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · core/protocol.mjs"
+          },
+          {
+            "path": "archive/oo-game-server-starter/tsconfig.json",
+            "lines": 21,
+            "verdict": "catalogued",
+            "portedTo": ""
+          }
+        ]
+      },
+      {
+        "repo": "oncyberio/game-server-v2",
+        "sha": "e1b0fe16075bda3d4d7d1a2da1fadf01e2cec39f",
+        "license": "MIT",
+        "upstream": "https://github.com/oncyberio/game-server-v2/tree/e1b0fe16075bda3d4d7d1a2da1fadf01e2cec39f",
+        "files": 38,
+        "lines": 4791,
+        "tally": {
+          "catalogued": 23,
+          "partial": 8,
+          "ported": 7
+        },
+        "entries": [
+          {
+            "path": "archive/game-server-v2/LICENSE",
+            "lines": 22,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/README.md",
+            "lines": 2,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/debug/index.html",
+            "lines": 290,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/loadtest/example.ts",
+            "lines": 26,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/package.json",
+            "lines": 58,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/app.config.ts",
+            "lines": 31,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/loadGame.ts",
+            "lines": 50,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/thread/RoomProxy.ts",
+            "lines": 101,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/thread/ServerApi.ts",
+            "lines": 114,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/thread/ServerSpace.ts",
+            "lines": 316,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/thread/SpaceProxy.ts",
+            "lines": 196,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/thread/ai.ts",
+            "lines": 183,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/thread/index.ts",
+            "lines": 23,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/ServerSpace/thread/types.ts",
+            "lines": 32,
+            "verdict": "partial",
+            "portedTo": "daemon/runspace.mjs (headless, no rapier)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/abstract/GameApi.ts",
+            "lines": 43,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs (GameSession semantics)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/abstract/GameLoop.ts",
+            "lines": 90,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs (GameSession semantics)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/abstract/GameSession.ts",
+            "lines": 714,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs (GameSession semantics)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/abstract/types.ts",
+            "lines": 174,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs (GameSession semantics)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/abstract/utils.ts",
+            "lines": 63,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs (GameSession semantics)"
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/index.ts",
+            "lines": 7,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/ArrayImpl.ts",
+            "lines": 90,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/GameTimer.ts",
+            "lines": 18,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/MapImpl.ts",
+            "lines": 37,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/PlayerState.ts",
+            "lines": 47,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/RoomState.ts",
+            "lines": 138,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/XYZ.ts",
+            "lines": 22,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/register.ts",
+            "lines": 326,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/schema/types.ts",
+            "lines": 533,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/scripting/ScriptData.ts",
+            "lines": 53,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/cyber/scripting/index.ts",
+            "lines": 161,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/express/index.ts",
+            "lines": 186,
+            "verdict": "ported",
+            "portedTo": "daemon/http.mjs (matchmaker → /rooms, /triad)"
+          },
+          {
+            "path": "archive/game-server-v2/src/index.ts",
+            "lines": 26,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/rooms/ColyseusGameRoom.ts",
+            "lines": 313,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/rooms/DefaultCyberGame.ts",
+            "lines": 97,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/src/rooms/index.ts",
+            "lines": 6,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/template.md",
+            "lines": 46,
+            "verdict": "ported",
+            "portedTo": "core/riddle.mjs · core/aivatar.mjs"
+          },
+          {
+            "path": "archive/game-server-v2/test/MyRoom_test.ts",
+            "lines": 34,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/game-server-v2/test/registerEntity_test.ts",
+            "lines": 123,
+            "verdict": "catalogued",
+            "portedTo": ""
+          }
+        ]
+      },
+      {
+        "repo": "oncyberio/onchain-cc-server",
+        "sha": "cc5c1de1f44e7fcf73e459ac52ec75aa449151e2",
+        "license": "MIT",
+        "upstream": "https://github.com/oncyberio/onchain-cc-server/tree/cc5c1de1f44e7fcf73e459ac52ec75aa449151e2",
+        "files": 28,
+        "lines": 2907,
+        "tally": {
+          "catalogued": 21,
+          "ported": 7
+        },
+        "entries": [
+          {
+            "path": "archive/onchain-cc-server/LICENSE",
+            "lines": 22,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/README.md",
+            "lines": 30,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/package.json",
+            "lines": 46,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/app.config.ts",
+            "lines": 26,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/abstract/GameApi.ts",
+            "lines": 32,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/abstract/GameLoop.ts",
+            "lines": 90,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/abstract/GameSession.ts",
+            "lines": 569,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/abstract/types.ts",
+            "lines": 154,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/abstract/utils.ts",
+            "lines": 63,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/index.ts",
+            "lines": 7,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/schema/ArrayImpl.ts",
+            "lines": 90,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/schema/GameTimer.ts",
+            "lines": 19,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/schema/MapImpl.ts",
+            "lines": 37,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/schema/PlayerState.ts",
+            "lines": 25,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/schema/RoomState.ts",
+            "lines": 62,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/schema/types.ts",
+            "lines": 511,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/scripting/ScriptData.ts",
+            "lines": 53,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/cyber/scripting/index.ts",
+            "lines": 161,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/express/index.ts",
+            "lines": 166,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/index.ts",
+            "lines": 18,
+            "verdict": "catalogued",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/onchain-cc-server/src/rooms/ColyseusGameRoom.ts",
+            "lines": 242,
+            "verdict": "ported",
+            "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)"
+          },
+          {
+            "path": "archive/onchain-cc-server/src/rooms/DefaultCyberGame.ts",
+            "lines": 144,
+            "verdict": "ported",
+            "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)"
+          },
+          {
+            "path": "archive/onchain-cc-server/src/rooms/GameState.ts",
+            "lines": 27,
+            "verdict": "ported",
+            "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)"
+          },
+          {
+            "path": "archive/onchain-cc-server/src/rooms/ServerSpace.ts",
+            "lines": 177,
+            "verdict": "ported",
+            "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)"
+          },
+          {
+            "path": "archive/onchain-cc-server/src/rooms/TestRoom.ts",
+            "lines": 51,
+            "verdict": "ported",
+            "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)"
+          },
+          {
+            "path": "archive/onchain-cc-server/src/rooms/index.ts",
+            "lines": 8,
+            "verdict": "ported",
+            "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)"
+          },
+          {
+            "path": "archive/onchain-cc-server/src/rooms/loadGame.ts",
+            "lines": 45,
+            "verdict": "ported",
+            "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)"
+          },
+          {
+            "path": "archive/onchain-cc-server/test/MyRoom_test.ts",
+            "lines": 32,
+            "verdict": "catalogued",
+            "portedTo": ""
+          }
+        ]
+      },
+      {
+        "repo": "oncyberio/awe",
+        "sha": "04a07c8d75c114d8ea217d0870eeef2c6a65635a",
+        "license": "MIT",
+        "upstream": "https://github.com/oncyberio/awe/tree/04a07c8d75c114d8ea217d0870eeef2c6a65635a",
+        "files": 38,
+        "lines": 4077,
+        "tally": {
+          "reference": 13,
+          "ported": 25
+        },
+        "entries": [
+          {
+            "path": "archive/awe/LICENSE",
+            "lines": 22,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/package.json",
+            "lines": 35,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/server/game-room.ts",
+            "lines": 62,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · daemon/ws.mjs"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/server/index.ts",
+            "lines": 9,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · daemon/ws.mjs"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/server/net-platformer-authority.ts",
+            "lines": 297,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · daemon/ws.mjs"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/server/smoke-test.ts",
+            "lines": 148,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · daemon/ws.mjs"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/clone-plain-object.ts",
+            "lines": 4,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/game-state.ts",
+            "lines": 18,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/messages.ts",
+            "lines": 107,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/mover-host.ts",
+            "lines": 103,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/client/local-command-source.ts",
+            "lines": 135,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/client/predicted-controller.ts",
+            "lines": 318,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/client/presentation-controller.ts",
+            "lines": 128,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/client/reconciliation.ts",
+            "lines": 252,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/index.ts",
+            "lines": 115,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/net-platformer-options.ts",
+            "lines": 130,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/net-platformer.ts",
+            "lines": 267,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/server/authoritative-controller.ts",
+            "lines": 160,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/server/input-queue.ts",
+            "lines": 113,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/shared/animation-state.ts",
+            "lines": 259,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/shared/command-frame.ts",
+            "lines": 46,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/shared/command-source.ts",
+            "lines": 10,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/shared/sim-state.ts",
+            "lines": 65,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer/shared/sim-step.ts",
+            "lines": 279,
+            "verdict": "ported",
+            "portedTo": "core/sim.mjs (deterministic step · input queue · ack)"
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/net-platformer-options.ts",
+            "lines": 40,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/network-constants.ts",
+            "lines": 15,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/presentation-driver.ts",
+            "lines": 11,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/auth-multiplayer/shared/snapshot-interpolation.ts",
+            "lines": 76,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/package.json",
+            "lines": 35,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/server/game-room.ts",
+            "lines": 45,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · daemon/ws.mjs"
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/server/index.ts",
+            "lines": 9,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · daemon/ws.mjs"
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/server/smoke-test.ts",
+            "lines": 148,
+            "verdict": "ported",
+            "portedTo": "core/rooms.mjs · daemon/ws.mjs"
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/shared/game-state.ts",
+            "lines": 16,
+            "verdict": "ported",
+            "portedTo": "core/snapshot.mjs · dvengine net/interp.js"
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/shared/messages.ts",
+            "lines": 24,
+            "verdict": "ported",
+            "portedTo": "core/snapshot.mjs · dvengine net/interp.js"
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/shared/network-constants.ts",
+            "lines": 12,
+            "verdict": "ported",
+            "portedTo": "core/snapshot.mjs · dvengine net/interp.js"
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/shared/snapshot-interpolation.ts",
+            "lines": 76,
+            "verdict": "ported",
+            "portedTo": "core/snapshot.mjs · dvengine net/interp.js"
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/test/multiplayer.integration.test.ts",
+            "lines": 457,
+            "verdict": "reference",
+            "portedTo": ""
+          },
+          {
+            "path": "archive/awe/examples/multiplayer/test/support/test-server.ts",
+            "lines": 31,
+            "verdict": "reference",
+            "portedTo": ""
+          }
+        ]
+      }
+    ]
+  }
+}

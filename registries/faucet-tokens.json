@@ -1,0 +1,48 @@
+{
+  "$schema": "cyborgd/faucet-tokens.v1",
+  "note": "Every token the faucet can drip. amount is a wei string. faucet = which contract redeems the voucher: cyborg-faucet (CyborgFaucet.drip, EIP-712 Drip) or shambaluv-airdrop (ShambaLuvAirdrop.claim, EIP-712 Claim). contract = the verifying contract for the EIP-712 domain. minRung gates the ladder. capPerDay counts drips per address AND per claim sub. Addresses: CyborgFaucet 0x447aE1ACafec942210b8545218a3a5c5C24b3952 is the PREDICTED create3d address (DeltaVerse/deploy/cyborg-faucet-salt.json, salt deltaverse.cyborg.faucet.v1, same on every EVM chain, not yet deployed); SCIEN·TIFIC 0x99999923fAb5D50Df0F3b2F89a49d18EC82Bea79 is the live CREATE2 address on every chain (DeltaVerse/docs/LIVE-CONTRACTS.md) — the 0x4282… address in anvil-deployments.json is a local rehearsal only. RPCs per chain live in chains.json.",
+  "tokens": [
+    {
+      "id": "luv-welcome", "label": "SHAMBA LUV — welcome grant", "chainId": 1, "kind": "erc20", "symbol": "LUV", "decimals": 18,
+      "contract": "0xdf2C1836550c5711EF9c021cB0de86241dc1DEf3", "token": "0x2711111111683B8708cb9a48cBf36a51315F8254",
+      "faucet": "shambaluv-airdrop", "amount": "1000000000000000000000000000000", "amountHuman": "1e12 LUV",
+      "cooldownSec": 31536000, "capPerDay": 1, "minRung": "member",
+      "note": "one welcome grant per wallet, ever (cooldown = 1 year, cap 1/day); redeemed by ShambaLuvAirdrop.claim(recipient,amount,nonce,deadline,sig) — the airdrop must be funded and its signer must equal CYBORGD's signer"
+    },
+    {
+      "id": "scientific", "label": "SCIEN·TIFIC", "chainId": 1, "kind": "erc20", "symbol": "SCIENTIFIC", "decimals": 18,
+      "contract": "0x447aE1ACafec942210b8545218a3a5c5C24b3952", "token": "0x99999923fAb5D50Df0F3b2F89a49d18EC82Bea79",
+      "faucet": "cyborg-faucet", "amount": "1000000000000000000", "amountHuman": "1 SCIENTIFIC",
+      "cooldownSec": 86400, "capPerDay": 1, "minRung": "member",
+      "note": "the first-light asset; CyborgFaucet.drip(token,to,amount,nonce,deadline,sig) once the faucet is deployed and funded"
+    },
+    {
+      "id": "luv", "label": "SHAMBA LUV — recurring", "chainId": 1, "kind": "erc20", "symbol": "LUV", "decimals": 18,
+      "contract": "0x447aE1ACafec942210b8545218a3a5c5C24b3952", "token": "0x2711111111683B8708cb9a48cBf36a51315F8254",
+      "faucet": "cyborg-faucet", "amount": "1000000000000000000000", "amountHuman": "1000 LUV",
+      "cooldownSec": 3600, "capPerDay": 6, "minRung": "player",
+      "note": "the recurring LUV drip through CyborgFaucet (players and above)"
+    },
+    {
+      "id": "0g-galileo", "label": "0G — Galileo testnet gas", "chainId": 16602, "kind": "native", "symbol": "0G", "decimals": 18,
+      "contract": "0x447aE1ACafec942210b8545218a3a5c5C24b3952", "token": "0x0000000000000000000000000000000000000000",
+      "faucet": "cyborg-faucet", "amount": "100000000000000000", "amountHuman": "0.1 0G",
+      "cooldownSec": 86400, "capPerDay": 1, "minRung": "member",
+      "note": "native drip: token = address(0) in CyborgFaucet; testnet"
+    },
+    {
+      "id": "0g-aristotle", "label": "0G — Aristotle mainnet gas", "chainId": 16661, "kind": "native", "symbol": "0G", "decimals": 18,
+      "contract": "0x447aE1ACafec942210b8545218a3a5c5C24b3952", "token": "0x0000000000000000000000000000000000000000",
+      "faucet": "cyborg-faucet", "amount": "10000000000000000", "amountHuman": "0.01 0G",
+      "cooldownSec": 86400, "capPerDay": 1, "minRung": "trader",
+      "note": "mainnet gas for traders; small on purpose"
+    },
+    {
+      "id": "arc-testnet", "label": "Arc testnet — USDC gas", "chainId": 5042002, "kind": "native", "symbol": "USDC", "decimals": 18,
+      "contract": "0x447aE1ACafec942210b8545218a3a5c5C24b3952", "token": "0x0000000000000000000000000000000000000000",
+      "faucet": "cyborg-faucet", "amount": "1000000000000000000", "amountHuman": "1 USDC (gas)",
+      "cooldownSec": 86400, "capPerDay": 1, "minRung": "member", "enabled": false,
+      "note": "present in DeltaVerse/deploy/rpc-map.json but the chain is permissioned and has no public RPC there — disabled until RPC_5042002 is set"
+    }
+  ]
+}

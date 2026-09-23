@@ -1,0 +1,91 @@
+{
+  "$schema": "dddcyborgd/sources.v1",
+  "generatedBy": "scripts/fetch-upstream.mjs",
+  "sources": [
+    {
+      "repo": "oncyberio/oo-game-server-starter",
+      "sha": "d9a11ed8ae16a5f385547cb4ed206c131635b713",
+      "ref": "main",
+      "license": "MIT (no LICENSE file; oncyberio repos carry MIT)",
+      "upstream": "https://github.com/oncyberio/oo-game-server-starter/tree/d9a11ed8ae16a5f385547cb4ed206c131635b713",
+      "tarballSha256": "3f45e50753328edb8cce5050d58a78fd5d98a468b6cbf7b1b91444032f9948ae",
+      "fetchedAt": "2026-09-23T00:43:17.823Z",
+      "paths": [
+        "README.md",
+        "package.json",
+        "partykit.json",
+        "src",
+        "tsconfig.json"
+      ],
+      "skip": [],
+      "files": 10,
+      "note": "the room contract: GameRoom<RoomState> hooks · broadcast/send · player-state message"
+    },
+    {
+      "repo": "oncyberio/game-server-v2",
+      "sha": "e1b0fe16075bda3d4d7d1a2da1fadf01e2cec39f",
+      "ref": "main",
+      "license": "MIT",
+      "upstream": "https://github.com/oncyberio/game-server-v2/tree/e1b0fe16075bda3d4d7d1a2da1fadf01e2cec39f",
+      "tarballSha256": "61e3c33838a5aae19bbddc69a8f12ccb6a6b73ccfbe2dea258cc8587523c754a",
+      "fetchedAt": "2026-09-23T00:43:18.378Z",
+      "paths": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "template.md",
+        "src",
+        "test",
+        "debug/index.html",
+        "loadtest"
+      ],
+      "skip": [],
+      "files": 38,
+      "note": "authoritative headless ServerSpace · matchmaker · Ai riddle→reward tool"
+    },
+    {
+      "repo": "oncyberio/onchain-cc-server",
+      "sha": "cc5c1de1f44e7fcf73e459ac52ec75aa449151e2",
+      "ref": "main",
+      "license": "MIT",
+      "upstream": "https://github.com/oncyberio/onchain-cc-server/tree/cc5c1de1f44e7fcf73e459ac52ec75aa449151e2",
+      "tarballSha256": "3c72aa3f1fa10de91e79ee1681827469ffab67a17402828e448b439261b82e41",
+      "fetchedAt": "2026-09-23T00:43:18.574Z",
+      "paths": [
+        "LICENSE",
+        "README.md",
+        "package.json",
+        "src",
+        "test"
+      ],
+      "skip": [],
+      "files": 28,
+      "note": "coin collector: the mint-opportunity (play-to-earn voucher) pattern"
+    },
+    {
+      "repo": "oncyberio/awe",
+      "sha": "04a07c8d75c114d8ea217d0870eeef2c6a65635a",
+      "ref": "main",
+      "license": "MIT",
+      "upstream": "https://github.com/oncyberio/awe/tree/04a07c8d75c114d8ea217d0870eeef2c6a65635a",
+      "tarballSha256": "0a7ca38f84cdd29dbf616b7c35cc66e01a9999995e1367f9219f5e9078af074c",
+      "fetchedAt": "2026-09-23T00:43:19.798Z",
+      "paths": [
+        "LICENSE",
+        "examples/multiplayer/server",
+        "examples/multiplayer/shared",
+        "examples/multiplayer/test",
+        "examples/multiplayer/package.json",
+        "examples/auth-multiplayer/server",
+        "examples/auth-multiplayer/shared",
+        "examples/auth-multiplayer/package.json"
+      ],
+      "skip": [
+        "\\.(glb|gltf|fbx|png|jpg)$",
+        "/node_modules/"
+      ],
+      "files": 38,
+      "note": "multiplayer + auth-multiplayer SERVER halves (Colyseus rooms, net-platformer authority, prediction/reconciliation)"
+    }
+  ]
+}

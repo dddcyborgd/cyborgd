@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc for="test/protocol.test.mjs" repo="dddcyborgd/cyborgd" generatedBy="scripts/doc-js.mjs">
+  <lane>node</lane>
+  <kind>test</kind>
+  <github sha="75313f5dd759321700ceaae8962e951dbb3e7731" upstream="https://github.com/dddcyborgd/cyborgd"/>
+  <migration target="stays-mjs" status="live">
+    <how>node --test.</how>
+    <why>No test framework dependency.</why>
+  </migration>
+</doc>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc for="core/zones.mjs" repo="dddcyborgd/cyborgd" generatedBy="scripts/doc-js.mjs">
+  <lane>isomorphic</lane>
+  <kind>core</kind>
+  <github sha="2b2daf286b09cd40dc02667cf19f0fe4bc9912bb" upstream="https://github.com/dddcyborgd/cyborgd"/>
+  <migration target="stays-mjs" status="live">
+    <how>Pure JS shared by the browser host (dist/cyborgd-core.js → window.CyborgdCore) and the daemon: no node imports, no Math.random, time via now().</how>
+    <why>THE TRIAD: the participant hosting a space runs the very same simulation the anchor runs.</why>
+  </migration>
+</doc>

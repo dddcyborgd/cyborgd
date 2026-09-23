@@ -1,0 +1,8 @@
+node_modules/
+*.log
+.DS_Store
+vendor/three/
+state/
+*.vault
+*.vault.json
+*.env

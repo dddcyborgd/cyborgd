@@ -1,0 +1,20 @@
+{
+  "name": "@dddcyborgd/cyborgd",
+  "version": "0.0.1-alpha",
+  "private": true,
+  "type": "module",
+  "description": "cyborgd — the three-d cyborg daemon: rooms · faucet · headless run-space for the DeltaVerse. Node 24, zero npm dependencies (ethers vendored).",
+  "license": "MIT",
+  "repository": "github:dddcyborgd/cyborgd",
+  "scripts": {
+    "fetch:upstream": "node scripts/fetch-upstream.mjs",
+    "fetch:upstream:check": "node scripts/fetch-upstream.mjs --check",
+    "lib": "node scripts/library.mjs",
+    "lib:check": "node scripts/library.mjs --check",
+    "doc:js": "node scripts/doc-js.mjs",
+    "doc:js:check": "node scripts/doc-js.mjs --check",
+    "start": "node daemon/cyborgd.mjs",
+    "selftest": "node daemon/cyborgd.mjs --selftest",
+    "test": "node --test test/*.test.mjs"
+  }
+}

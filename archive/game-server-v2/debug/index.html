@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: flex-start;
+        align-items: stretch;
+        height: calc(100vh - 2rem);
+
+        background-color: #f0f0f0;
+      }
+      #btnLoad {
+        flex: 0 0 auto;
+        margin-right: auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      canvas {
+        flex: 1 1 auto;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <script src="https://unpkg.com/colyseus.js@^0.15.0/dist/colyseus.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.159.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.159.0/examples/jsm/"
+      }
+    }
+  </script>
+  <body>
+    <button id="btnLoad">Load Game</button>
+    <canvas id="gameCanvas"></canvas>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      // Set up scene, camera, and renderer
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({
+        canvas: document.getElementById("gameCanvas"),
+      });
+
+      document.body.appendChild(renderer.domElement);
+
+      function resize() {
+        const canvas = renderer.domElement;
+
+        const rect = canvas.getBoundingClientRect();
+
+        const width = rect.width;
+        const height = rect.height;
+
+        renderer.setSize(width, height, false);
+
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+
+      window.addEventListener("resize", resize);
+
+      camera.position.z = 5;
+      camera.position.y = 10;
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.25;
+
+      // simple WASD controls
+      const moveSpeed = 0.1;
+      const moveState = {
+        moveForward: false,
+        moveBackward: false,
+        moveLeft: false,
+        moveRight: false,
+        moveUp: false,
+        moveDown: false,
+      };
+
+      document.addEventListener("keydown", onKeyDown);
+      document.addEventListener("keyup", onKeyUp);
+
+      function onKeyDown(event) {
+        switch (event.code) {
+          case "KeyW":
+          case "ArrowUp":
+            moveState.moveForward = true;
+            break;
+          case "KeyS":
+          case "ArrowDown":
+            moveState.moveBackward = true;
+            break;
+          case "KeyA":
+          case "ArrowLeft":
+            moveState.moveLeft = true;
+            break;
+          case "KeyD":
+          case "ArrowRight":
+            moveState.moveRight = true;
+            break;
+          case "Space":
+            moveState.moveUp = true;
+            break;
+          case "KeyB":
+            moveState.moveDown = true;
+            break;
+        }
+      }
+
+      function onKeyUp(event) {
+        switch (event.code) {
+          case "KeyW":
+          case "ArrowUp":
+            moveState.moveForward = false;
+            break;
+          case "KeyS":
+          case "ArrowDown":
+            moveState.moveBackward = false;
+            break;
+          case "KeyA":
+          case "ArrowLeft":
+            moveState.moveLeft = false;
+            break;
+          case "KeyD":
+          case "ArrowRight":
+            moveState.moveRight = false;
+            break;
+          case "Space":
+            moveState.moveUp = false;
+            break;
+          case "KeyB":
+            moveState.moveDown = false;
+            break;
+        }
+      }
+
+      function updateCamera() {
+        const moveVector = new THREE.Vector3();
+        if (moveState.moveForward) moveVector.z -= moveSpeed;
+        if (moveState.moveBackward) moveVector.z += moveSpeed;
+        if (moveState.moveLeft) moveVector.x -= moveSpeed;
+        if (moveState.moveRight) moveVector.x += moveSpeed;
+        if (moveState.moveUp) moveVector.y += moveSpeed;
+        if (moveState.moveDown) moveVector.y -= moveSpeed;
+
+        camera.position.add(moveVector.applyQuaternion(camera.quaternion));
+        controls.target.add(moveVector);
+      }
+
+      // Animation function
+      function animate() {
+        requestAnimationFrame(animate);
+        updateCamera();
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      // Start animation
+      animate();
+
+      // Handle window resize
+
+      let currentMesh = null;
+      const loader = new THREE.ObjectLoader();
+
+      function renderJSONMesh(json) {
+        if (currentMesh) {
+          scene.remove(currentMesh);
+        }
+
+        const mesh = loader.parse(json);
+        scene.add(mesh);
+
+        currentMesh = mesh;
+      }
+
+      let room = null;
+
+      /*
+      async function onDebug() {
+        // simulate a json object
+        // const geometry = new THREE.BoxGeometry();
+        // const material = new THREE.MeshBasicMaterial({
+        //   color: 0x00ff00,
+        //   wireframe: true,
+        // });
+        // const cube = new THREE.Mesh(geometry, material);
+
+        // const json = cube.toJSON();
+
+        const json = fetch("http://localhost:2567/debug")
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Failed to fetch");
+            }
+            return res.json();
+          })
+          .then((json) => {
+            renderJSONMesh(json);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+      */
+
+      document.getElementById("btnLoad").addEventListener("click", () => {
+        // onDebug();
+        const msgId = Math.random();
+
+        room.send(1000, {
+          type: 9001,
+          msgId,
+          data: {
+            type: "debugPhysics",
+          },
+        });
+
+        room.onMessage(1000, (msg) => {
+          console.log("Received message", msg);
+          if (msg.type === 9001 && msg.msgId === msgId) {
+            const data = msg.data;
+            console.log("Received data", data);
+            renderJSONMesh(data);
+          }
+        });
+      });
+
+      window.addEventListener("load", async () => {
+        //
+        let client = new Colyseus.Client("ws://localhost:2567");
+
+        const opts = {
+          gameId: "Y7cC98BckEUlEDkGkkaD",
+          userId: "debug",
+          userName: "debug",
+        };
+
+        const request = await fetch(`http://localhost:2567/join`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(opts),
+        });
+
+        const response = await request.json();
+
+        if (!response.success) {
+          console.error(response.message);
+          return;
+        }
+
+        room = await client.consumeSeatReservation(response.reservation);
+
+        console.log("Room joined successfully", room);
+      });
+
+      window.addEventListener("unload", async () => {
+        if (room) {
+          await room.leave();
+        }
+      });
+    </script>
+  </body>
+</html>

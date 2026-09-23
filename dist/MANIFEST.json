@@ -1,0 +1,278 @@
+{
+  "$schema": "cyborgd/core-manifest.v1",
+  "version": "0.0.1-alpha",
+  "global": "CyborgdCore",
+  "file": "cyborgd-core.js",
+  "bytes": 96772,
+  "sha256": "92c8671600cdbcedf687856cf2e8ed23a68a7e5dd3b2fe2157f8f5a82296de38",
+  "modules": [
+    {
+      "name": "arcball",
+      "file": "core/arcball.mjs",
+      "sha256": "bab932718406f51210fe7e1a3035c414aa6ef185dc779fcf64c83c34fb09fed8",
+      "exports": [
+        "default",
+        "DEFAULT_RADIUS",
+        "SHOULDER",
+        "project",
+        "onSphere",
+        "sphericalOf",
+        "fromSpherical",
+        "reach",
+        "shoulderOf",
+        "orbit",
+        "arcball"
+      ]
+    },
+    {
+      "name": "ladder",
+      "file": "core/ladder.mjs",
+      "sha256": "7ff9e6e594ed3d68954ee599fec170d41fa6f90af0ee5585b7a4ed0791b67da6",
+      "exports": [
+        "LADDER",
+        "ALIASES",
+        "TIER_FALLBACK",
+        "HOST_MIN_RUNG",
+        "rankOf",
+        "rungName",
+        "atLeast",
+        "isRung",
+        "rungOfClaim"
+      ]
+    },
+    {
+      "name": "protocol",
+      "file": "core/protocol.mjs",
+      "sha256": "d5976b429e9be50767f4ff289f96dc34bbd19f6cd078d869a337363804e5381c",
+      "exports": [
+        "VERSION",
+        "INVALID_LIMIT",
+        "RATE",
+        "STATE_HZ_MAX",
+        "MAX_TXT",
+        "MAX_NAME",
+        "MAX_MSG_BYTES",
+        "MAX_RTC_BYTES",
+        "MAX_SNAP_BYTES",
+        "CLIENT_TYPES",
+        "SERVER_TYPES",
+        "EVENT_NAMES",
+        "GESTURES",
+        "AVATAR_KINDS",
+        "ROLES",
+        "RTC_KINDS",
+        "is",
+        "guards",
+        "parseClient",
+        "enc",
+        "isServerMessage"
+      ]
+    },
+    {
+      "name": "riddle",
+      "file": "core/riddle.mjs",
+      "sha256": "7a7be6308252fda08b372f9f758481791c9165bdbe5ce158af4bf9a6fa88b339",
+      "exports": [
+        "ATTEMPT_COOLDOWN_MS",
+        "MAX_SRAI_DEPTH",
+        "normalize",
+        "normalizeAnswer",
+        "compilePattern",
+        "Matcher",
+        "DEFAULT_CATEGORIES",
+        "Riddler"
+      ]
+    },
+    {
+      "name": "seed",
+      "file": "core/seed.mjs",
+      "sha256": "3d0b62c5a9ca4fa31b5506d4e071088a5b41a6503626fbd753c7cb2ac331108d",
+      "exports": [
+        "hashSeed",
+        "rng",
+        "choose"
+      ]
+    },
+    {
+      "name": "sim",
+      "file": "core/sim.mjs",
+      "sha256": "44a284286845bcc241d31925f8dfc0c178e77d92b4c256b50c5c67fbb9d85724",
+      "exports": [
+        "CFG",
+        "MAX_CMD_AGE_TICKS",
+        "SIM_RATE",
+        "SIM_DT",
+        "initialState",
+        "idleCmd",
+        "stepSim",
+        "replay",
+        "checkpointOf",
+        "ackOf",
+        "InputQueue",
+        "Authority"
+      ]
+    },
+    {
+      "name": "snapshot",
+      "file": "core/snapshot.mjs",
+      "sha256": "c0908af1edff10b82878b4a99b28aaa846e5f8c056cc6a109ee8efd827b7f686",
+      "exports": [
+        "sameEntity",
+        "emptySnapshot",
+        "delta",
+        "apply",
+        "mergeLWW",
+        "SnapshotBuffer",
+        "lerpEntity"
+      ]
+    },
+    {
+      "name": "transport",
+      "file": "core/transport.mjs",
+      "sha256": "b0c6f33d93fb0109b3d3b65832024e672af1eae25e62769f02b66a5422963fb3",
+      "exports": [
+        "transportId",
+        "BaseTransport",
+        "LoopbackTransport",
+        "RecordingTransport",
+        "isTransport"
+      ]
+    },
+    {
+      "name": "triad",
+      "file": "core/triad.mjs",
+      "sha256": "c99db7133cf601b8096bfa3302a1c91897d818136f16686ff0c12842bc4da91d",
+      "exports": [
+        "ANCHOR",
+        "emptyTriad",
+        "emptySpace",
+        "canHost",
+        "elect",
+        "roster",
+        "roleOf",
+        "triadStep",
+        "Triad"
+      ]
+    },
+    {
+      "name": "zones",
+      "file": "core/zones.mjs",
+      "sha256": "6ce4045058dc7df1ede23aff8db6041bf2238edf0bb697464bb6c005de985a90",
+      "exports": [
+        "PORTAL_REACH",
+        "v3",
+        "isSphere",
+        "isBox",
+        "contains",
+        "centreOf",
+        "radiusOf",
+        "zoneAt",
+        "zonesAt",
+        "clampTo",
+        "pushOut",
+        "portalReach",
+        "validateZones"
+      ]
+    },
+    {
+      "name": "aivatar",
+      "file": "core/aivatar.mjs",
+      "sha256": "f5019d2fe51bb847bc4127ce436a08c788507f0ce5bb7959b982359b04e4ce37",
+      "exports": [
+        "Riddler",
+        "playerKeyOf",
+        "GREET_RANGE",
+        "REACH_RANGE",
+        "WANDER_SPEED",
+        "EMOTIONS",
+        "GESTURE_LINES",
+        "GESTURE_ANIM",
+        "DEFAULT_SAY",
+        "Agent",
+        "BEHAVIOURS",
+        "createAgents"
+      ]
+    },
+    {
+      "name": "rooms",
+      "file": "core/rooms.mjs",
+      "sha256": "3d07adf80c207eee545ec33655c8e0ace2fdab98799a128f5aa8090b1889de60",
+      "exports": [
+        "GESTURES",
+        "v3",
+        "DEFAULTS",
+        "Latency",
+        "sessionIdFor",
+        "Room",
+        "createRoom"
+      ]
+    },
+    {
+      "name": "index",
+      "file": "core/index.mjs",
+      "sha256": "17c4284ed49001a023d639b07471776a2e41f2c585398720d2185f745a8bd2de",
+      "exports": [
+        "CORE_VERSION",
+        "protocol",
+        "ladder",
+        "zones",
+        "arcball",
+        "snapshot",
+        "sim",
+        "seed",
+        "riddle",
+        "aivatar",
+        "rooms",
+        "triad",
+        "transport",
+        "VERSION",
+        "parseClient",
+        "enc",
+        "guards",
+        "isServerMessage",
+        "INVALID_LIMIT",
+        "CLIENT_TYPES",
+        "SERVER_TYPES",
+        "LADDER",
+        "rankOf",
+        "rungName",
+        "atLeast",
+        "rungOfClaim",
+        "Room",
+        "createRoom",
+        "Latency",
+        "Agent",
+        "createAgents",
+        "BEHAVIOURS",
+        "Riddler",
+        "Matcher",
+        "triadStep",
+        "Triad",
+        "elect",
+        "emptyTriad",
+        "ANCHOR",
+        "stepSim",
+        "InputQueue",
+        "Authority",
+        "initialState",
+        "idleCmd",
+        "CFG",
+        "delta",
+        "apply",
+        "mergeLWW",
+        "SnapshotBuffer",
+        "project",
+        "reach",
+        "shoulderOf",
+        "orbit",
+        "LoopbackTransport",
+        "RecordingTransport",
+        "BaseTransport",
+        "isTransport",
+        "rng",
+        "hashSeed",
+        "choose"
+      ]
+    }
+  ]
+}

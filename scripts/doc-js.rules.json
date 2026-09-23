@@ -1,0 +1,50 @@
+{
+  "repo": "dddcyborgd/cyborgd",
+  "upstream": "https://github.com/dddcyborgd/cyborgd",
+  "default": {
+    "lane": "node",
+    "kind": "module",
+    "target": "stays-mjs",
+    "status": "prototype",
+    "how": "Node 24 ESM, zero npm dependencies.",
+    "why": "The daemon is server lane (MIT); keys live in a bankon-vault file, never in the repo."
+  },
+  "rules": [
+    {
+      "match": "^core/",
+      "lane": "isomorphic",
+      "kind": "core",
+      "target": "stays-mjs",
+      "status": "live",
+      "how": "Pure JS shared by the browser host (dist/cyborgd-core.js \u2192 window.CyborgdCore) and the daemon: no node imports, no Math.random, time via now().",
+      "why": "THE TRIAD: the participant hosting a space runs the very same simulation the anchor runs."
+    },
+    {
+      "match": "^daemon/",
+      "lane": "node",
+      "kind": "daemon",
+      "target": "stays-mjs",
+      "status": "live",
+      "how": "cyborgd module: rooms \u00b7 protocol \u00b7 claim \u00b7 faucet \u00b7 voucher \u00b7 pow \u00b7 rate \u00b7 state \u00b7 runspace \u00b7 riddle.",
+      "why": "One daemon, one port; every module is replaceable behind its registry."
+    },
+    {
+      "match": "^scripts/",
+      "lane": "node",
+      "kind": "tooling",
+      "target": "stays-mjs",
+      "status": "live",
+      "how": "Repo tooling.",
+      "why": "Re-runnable, --check-able."
+    },
+    {
+      "match": "^test/",
+      "lane": "node",
+      "kind": "test",
+      "target": "stays-mjs",
+      "status": "live",
+      "how": "node --test.",
+      "why": "No test framework dependency."
+    }
+  ]
+}

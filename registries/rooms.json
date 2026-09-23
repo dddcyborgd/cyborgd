@@ -1,0 +1,95 @@
+{
+  "$schema": "cyborgd/rooms.v1",
+  "note": "Seeded from DeltaVerse/backend/deltaverse/bubblerooms.py (BUBBLEROOMS). minRole is a ladder rung (core/ladder.mjs). bubblerooms' min_role vocabulary maps: public→participant, model→member, agent→player, overseer→overseer, overlord→overlord. Zones are spheres {c,r} or boxes {min,max}; a zone's minRole gates movement into it; portalTo names a zone in this room or room:zone. Agents are aivatar definitions (core/aivatar.mjs); riddle.ids index registries/riddles.json.",
+  "rooms": [
+    {
+      "id": "agora", "name": "The Agora", "preset": "ARENA", "tone": "open", "minRole": "participant",
+      "skin": "fabric", "theme": "#7ad7ff", "blurb": "The public square. The fabric is visible to all who arrive.",
+      "tickRate": 20, "simRate": 60, "maxPlayers": 64, "spawn": [0, 0, 6], "spawnRadius": 2,
+      "zones": [
+        { "id": "square", "minRole": "participant", "bounds": { "c": [0, 0, 0], "r": 14 } },
+        { "id": "fountain", "minRole": "participant", "bounds": { "c": [0, 0, -4], "r": 3 } },
+        { "id": "members-gate", "minRole": "member", "bounds": { "c": [10, 0, -6], "r": 2 }, "portalTo": "journal:hall" },
+        { "id": "dojo-gate", "minRole": "player", "bounds": { "c": [-10, 0, -6], "r": 2 }, "portalTo": "dojo:mat" }
+      ],
+      "agents": [
+        { "id": "herald", "kind": "aivatar", "type": "iNFT", "name": "The Herald", "seed": "agora.herald", "spawn": [0, 0, -4], "zone": "fountain",
+          "say": ["Welcome to the Agora, participant.", "The fabric sees you. Ask me who I am.", "Solve my riddle and the faucet opens.", "Members pass the gate to the east."],
+          "riddle": { "ids": ["echo", "keyboard", "candle"], "reward": { "token": "luv-welcome", "amount": "1000000000000000000000000000000" } } }
+      ]
+    },
+    {
+      "id": "journal", "name": "Improvement Journal", "preset": "DOJO", "tone": "reflective", "minRole": "member",
+      "skin": "paper", "theme": "#d9c27a", "blurb": "mindX's autonomous decisions, on a 30-minute cadence.",
+      "tickRate": 20, "simRate": 60, "maxPlayers": 32, "spawn": [0, 0, 5],
+      "zones": [
+        { "id": "hall", "minRole": "member", "bounds": { "c": [0, 0, 0], "r": 10 } },
+        { "id": "reading-room", "minRole": "member", "bounds": { "c": [0, 0, -5], "r": 3 } },
+        { "id": "back-to-agora", "minRole": "participant", "bounds": { "c": [0, 0, 9], "r": 1.5 }, "portalTo": "agora:square" }
+      ],
+      "agents": [
+        { "id": "scribe", "kind": "aivatar", "type": "THOT", "name": "The Scribe", "seed": "journal.scribe", "spawn": [0, 0, -5], "zone": "reading-room",
+          "say": ["Every decision is written here.", "Reflection is a cadence, not a moment.", "I remember what the fabric forgets."],
+          "riddle": { "ids": ["footsteps", "map", "tomorrow"], "reward": { "token": "scientific", "amount": "1000000000000000000" } } }
+      ]
+    },
+    {
+      "id": "dojo", "name": "The Dojo", "preset": "DOJO", "tone": "competitive", "minRole": "player",
+      "skin": "tatami", "theme": "#ff7a59", "blurb": "Agent reputation. Privilege here is earned, not assigned.",
+      "tickRate": 20, "simRate": 60, "maxPlayers": 32, "spawn": [0, 0, 6],
+      "zones": [
+        { "id": "mat", "minRole": "player", "bounds": { "min": [-8, -1, -8], "max": [8, 4, 8] } },
+        { "id": "ring", "minRole": "trader", "bounds": { "c": [0, 0, 0], "r": 3 } },
+        { "id": "back-to-agora", "minRole": "participant", "bounds": { "c": [0, 0, 9], "r": 1.5 }, "portalTo": "agora:square" }
+      ],
+      "agents": [
+        { "id": "sensei", "kind": "aivatar", "type": "aNFT", "name": "Sensei", "seed": "dojo.sensei", "spawn": [0, 0, 0], "zone": "ring", "behaviours": ["greet", "mirror", "reach", "focus", "riddle"],
+          "say": ["Show me your stance.", "Reputation is earned on the mat.", "Traders step into the ring."],
+          "riddle": { "ids": ["silence", "towel", "breath"], "reward": { "token": "luv", "amount": "1000000000000000000000" } } }
+      ]
+    },
+    {
+      "id": "boardroom", "name": "The Boardroom", "preset": "BOARDROOM", "tone": "deliberative", "minRole": "overseer",
+      "skin": "walnut", "theme": "#9fd8a0", "blurb": "Governance sessions. Overseers distribute privilege and moderate.",
+      "tickRate": 20, "simRate": 60, "maxPlayers": 16, "spawn": [0, 0, 5],
+      "zones": [
+        { "id": "table", "minRole": "overseer", "bounds": { "c": [0, 0, 0], "r": 8 } },
+        { "id": "chair", "minRole": "overlord", "bounds": { "c": [0, 0, -5], "r": 1.2 } }
+      ],
+      "agents": [
+        { "id": "clerk", "kind": "aivatar", "type": "dNFT", "name": "The Clerk", "seed": "boardroom.clerk", "spawn": [3, 0, -3], "zone": "table", "behaviours": ["wander", "greet", "focus"],
+          "say": ["The session is in order.", "Minutes are kept on chain.", "The chair belongs to the overlord."] }
+      ]
+    },
+    {
+      "id": "treasury", "name": "The Treasury", "preset": "TREASURY", "tone": "guarded", "minRole": "overseer",
+      "skin": "vault", "theme": "#f2c94c", "blurb": "The BANKON vault surface. Cabinet-tier and above.",
+      "tickRate": 20, "simRate": 60, "maxPlayers": 8, "spawn": [0, 0, 5],
+      "zones": [
+        { "id": "antechamber", "minRole": "overseer", "bounds": { "c": [0, 0, 2], "r": 5 } },
+        { "id": "vault-door", "minRole": "overlord", "bounds": { "c": [0, 0, -5], "r": 2 } }
+      ],
+      "agents": [
+        { "id": "warden", "kind": "aivatar", "type": "iNFT", "name": "The Warden", "seed": "treasury.warden", "spawn": [0, 0, -3], "zone": "antechamber", "behaviours": ["greet", "reach", "focus"],
+          "say": ["Custody is a discipline.", "Nothing leaves without a signature.", "The door answers to bankon.eth alone."] }
+      ]
+    },
+    {
+      "id": "warcouncil", "name": "The War Council", "preset": "WARCOUNCIL", "tone": "strategic", "minRole": "overlord",
+      "skin": "obsidian", "theme": "#c04bff", "host": "mastermind.pythai.net", "blurb": "mastermind.pythai.net — strategy at the MASTERMIND tier. The overlord convenes.",
+      "tickRate": 20, "simRate": 60, "maxPlayers": 8, "spawn": [0, 0, 4],
+      "zones": [ { "id": "map-table", "minRole": "overlord", "bounds": { "c": [0, 0, 0], "r": 6 } } ],
+      "agents": [
+        { "id": "strategist", "kind": "aivatar", "type": "THOT", "name": "The Strategist", "seed": "warcouncil.strategist", "spawn": [0, 0, -2], "zone": "map-table", "behaviours": ["greet", "mirror", "focus"],
+          "say": ["Every move is a signature.", "The map is not the territory; the chain is.", "Convene."] }
+      ]
+    },
+    {
+      "id": "sanctum", "name": "The Sanctum", "preset": "SANCTUM", "tone": "sovereign", "minRole": "overlord",
+      "skin": "void", "theme": "#ffffff", "blurb": "The REALM control surface. The overlord alone holds the keys.",
+      "tickRate": 20, "simRate": 60, "maxPlayers": 4, "spawn": [0, 0, 3],
+      "zones": [ { "id": "core", "minRole": "overlord", "bounds": { "c": [0, 0, 0], "r": 4 } } ],
+      "agents": []
+    }
+  ]
+}

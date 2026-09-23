@@ -1,0 +1,10 @@
+{
+  "$schema": "cyborgd/chains.v1",
+  "note": "Chains the faucet and the space reader may touch. RPC lists come from DeltaVerse/deploy/rpc-map.json (verified there); RPC_<chainId> in the environment overrides. 16661 (0G Aristotle mainnet) has no entry in rpc-map.json — its RPC is the documented public endpoint, unverified here. 5042002 (Arc testnet) is present in rpc-map.json with an empty RPC list (permissioned).",
+  "chains": {
+    "1": { "chainId": 1, "name": "Ethereum", "symbol": "ETH", "decimals": 18, "explorer": "https://etherscan.io", "rpc": ["https://cloudflare-eth.com", "https://ethereum-rpc.publicnode.com"], "verified": "deploy/rpc-map.json" },
+    "16602": { "chainId": 16602, "name": "0G Galileo", "symbol": "0G", "decimals": 18, "explorer": "https://chainscan-galileo.0g.ai", "rpc": ["https://evmrpc-testnet.0g.ai"], "testnet": true, "verified": "deploy/rpc-map.json" },
+    "16661": { "chainId": 16661, "name": "0G Aristotle", "symbol": "0G", "decimals": 18, "explorer": "https://chainscan.0g.ai", "rpc": ["https://evmrpc.0g.ai"], "verified": false, "note": "absent from rpc-map.json; documented public RPC, unverified" },
+    "5042002": { "chainId": 5042002, "name": "Arc Testnet", "symbol": "USDC", "decimals": 18, "explorer": "https://explorer.arc.network", "rpc": [], "testnet": true, "verified": "deploy/rpc-map.json", "note": "permissioned; set RPC_5042002 to enable" }
+  }
+}

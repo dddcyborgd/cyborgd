@@ -1,0 +1,1 @@
+{ "type": "commonjs", "private": true, "description": "scopes vendor/ethers/ethers.umd.min.js (UMD) to CommonJS so createRequire loads it under the ESM daemon" }

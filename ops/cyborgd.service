@@ -1,0 +1,45 @@
+# cyborgd — the three-d cyborg daemon (github.com/dddcyborgd/cyborgd, MIT)
+# install: sudo cp ops/cyborgd.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now cyborgd
+# the DeltaVerse's deploy/web2/deploy-deltaverse.sh installs this unit itself (sed-rewriting the tenant path).
+[Unit]
+Description=cyborgd — the triad anchor + faucet of the DeltaVerse (cyborg/1 on 127.0.0.1:8790)
+Documentation=https://github.com/dddcyborgd/cyborgd
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=deltaverse
+Group=deltaverse
+WorkingDirectory=/home/deltaverse/dddcyborgd/cyborgd
+EnvironmentFile=/etc/cyborgd.env
+ExecStart=/usr/bin/node daemon/cyborgd.mjs
+Restart=always
+RestartSec=3
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+# resources
+MemoryMax=512M
+CPUQuota=50%
+TasksMax=256
+LimitNOFILE=16384
+
+# hardening — the daemon writes ONLY under state/ (ledgers, counters, space docs)
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/deltaverse/dddcyborgd/cyborgd/state
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictSUIDSGID=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+[
+  { "repo": "oncyberio/oo-game-server-starter", "sha": "d9a11ed8ae16a5f385547cb4ed206c131635b713", "ref": "main", "license": "MIT (no LICENSE file; oncyberio repos carry MIT)",
+    "note": "the room contract: GameRoom<RoomState> hooks · broadcast/send · player-state message", "paths": ["README.md", "package.json", "partykit.json", "src", "tsconfig.json"] },
+  { "repo": "oncyberio/game-server-v2", "sha": "e1b0fe16075bda3d4d7d1a2da1fadf01e2cec39f", "ref": "main", "license": "MIT",
+    "note": "authoritative headless ServerSpace · matchmaker · Ai riddle→reward tool", "paths": ["LICENSE", "README.md", "package.json", "template.md", "src", "test", "debug/index.html", "loadtest"] },
+  { "repo": "oncyberio/onchain-cc-server", "sha": "cc5c1de1f44e7fcf73e459ac52ec75aa449151e2", "ref": "main", "license": "MIT",
+    "note": "coin collector: the mint-opportunity (play-to-earn voucher) pattern", "paths": ["LICENSE", "README.md", "package.json", "src", "test"] },
+  { "repo": "oncyberio/awe", "sha": "04a07c8d75c114d8ea217d0870eeef2c6a65635a", "ref": "main", "license": "MIT",
+    "note": "multiplayer + auth-multiplayer SERVER halves (Colyseus rooms, net-platformer authority, prediction/reconciliation)",
+    "paths": ["LICENSE", "examples/multiplayer/server", "examples/multiplayer/shared", "examples/multiplayer/test", "examples/multiplayer/package.json",
+              "examples/auth-multiplayer/server", "examples/auth-multiplayer/shared", "examples/auth-multiplayer/package.json"],
+    "skip": ["\\.(glb|gltf|fbx|png|jpg)$", "/node_modules/"] }
+]

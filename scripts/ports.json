@@ -1,0 +1,14 @@
+[
+  { "match": "^archive/oo-game-server-starter/src/", "verdict": "ported", "portedTo": "core/rooms.mjs · core/protocol.mjs" },
+  { "match": "^archive/game-server-v2/src/cyber/ServerSpace/", "verdict": "partial", "portedTo": "daemon/runspace.mjs (headless, no rapier)" },
+  { "match": "^archive/game-server-v2/src/cyber/abstract/", "verdict": "ported", "portedTo": "core/rooms.mjs (GameSession semantics)" },
+  { "match": "^archive/game-server-v2/src/express/", "verdict": "ported", "portedTo": "daemon/http.mjs (matchmaker → /rooms, /triad)" },
+  { "match": "^archive/game-server-v2/template.md", "verdict": "ported", "portedTo": "core/riddle.mjs · core/aivatar.mjs" },
+  { "match": "^archive/game-server-v2/", "verdict": "catalogued", "portedTo": "" },
+  { "match": "^archive/onchain-cc-server/src/rooms/", "verdict": "ported", "portedTo": "daemon/faucet.mjs · daemon/voucher.mjs (mint-opportunity → voucher)" },
+  { "match": "^archive/onchain-cc-server/", "verdict": "catalogued", "portedTo": "" },
+  { "match": "^archive/awe/examples/auth-multiplayer/shared/net-platformer/", "verdict": "ported", "portedTo": "core/sim.mjs (deterministic step · input queue · ack)" },
+  { "match": "^archive/awe/examples/multiplayer/shared/", "verdict": "ported", "portedTo": "core/snapshot.mjs · dvengine net/interp.js" },
+  { "match": "^archive/awe/examples/.*/server/", "verdict": "ported", "portedTo": "core/rooms.mjs · daemon/ws.mjs" },
+  { "match": "^archive/awe/", "verdict": "reference", "portedTo": "" }
+]

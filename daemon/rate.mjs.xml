@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc for="daemon/rate.mjs" repo="dddcyborgd/cyborgd" generatedBy="scripts/doc-js.mjs">
+  <lane>node</lane>
+  <kind>daemon</kind>
+  <github sha="6d5aa4294c712508e45999f703dfa3c4ae4d46b3" upstream="https://github.com/dddcyborgd/cyborgd"/>
+  <migration target="stays-mjs" status="live">
+    <how>cyborgd module: rooms · protocol · claim · faucet · voucher · pow · rate · state · runspace · riddle.</how>
+    <why>One daemon, one port; every module is replaceable behind its registry.</why>
+  </migration>
+</doc>

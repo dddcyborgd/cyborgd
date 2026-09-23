@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc for="scripts/fetch-upstream.mjs" repo="dddcyborgd/cyborgd" generatedBy="scripts/doc-js.mjs">
+  <lane>node</lane>
+  <kind>tooling</kind>
+  <github sha="625cb59eeb098703c139b9773c3aa55ccdce561d" upstream="https://github.com/dddcyborgd/cyborgd"/>
+  <migration target="stays-mjs" status="live">
+    <how>Repo tooling.</how>
+    <why>Re-runnable, --check-able.</why>
+  </migration>
+</doc>
