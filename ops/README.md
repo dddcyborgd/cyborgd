@@ -55,7 +55,7 @@ Set at least:
 - `RPC_1`, `RPC_16661` — the RPC urls handed to clients with each voucher (and used for CyborgSpace
   `tokenURI` reads when `CYBORG_SPACE_<chainId>` is set).
 - `CYBORG_FAUCET_<chainId>` once the CyborgFaucet is deployed at an address other than the predicted
-  create3d one (`0x447aE1ACafec942210b8545218a3a5c5C24b3952`).
+  create3d one (`0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199`).
 
 ### 4. The vault — a sealed signer, never a clear-text key
 

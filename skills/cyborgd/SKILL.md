@@ -121,9 +121,9 @@ valid ONLY when bankon.eth deploys through factory `0xa5A2581d564248801cc5e06DbB
 
 | contract | address |
 |---|---|
-| CyborgSpace | `0x94Dd21aEF62a5370480C882D88DfD682527055b4` |
-| CyborgDrop | `0xb81e6355f9bD8de4243045595C95816A0886a546` |
-| CyborgFaucet | `0x447aE1ACafec942210b8545218a3a5c5C24b3952` (predicted; `registries/faucet-tokens.json` uses it; `CYBORG_FAUCET_<chainId>` overrides) |
+| CyborgSpace | `0x5ace4baEc5b9F80cDe517Ed42D51F360Eb52595e` |
+| CyborgDrop | `0xd0D0D1c6D250db2DD97368Da8CE1E70c46E993cc` |
+| CyborgFaucet | `0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199` (predicted; `registries/faucet-tokens.json` uses it; `CYBORG_FAUCET_<chainId>` overrides) |
 
 Order: bootstrap → deploy Faucet → MultiSender → Drop → Space → **configure + fund** (faucet limits,
 `ShambaLuvAirdrop.setSigner(<cyborgd signer>)`, LUV funding) → **then** renounce. Grant first,
@@ -150,7 +150,7 @@ health `curl /cyborg/api/health`, ledgers, upgrade = pull + restart; `deploy-del
 
 ## 9. Open findings
 
-1. `CyborgFaucet` `0x447a…3952` is predicted, not deployed; `luv-welcome` needs `ShambaLuvAirdrop.setSigner` + funding — until then vouchers sign but cannot be redeemed.
+1. `CyborgFaucet` `0xfa0C…f199` is predicted, not deployed; `luv-welcome` needs `ShambaLuvAirdrop.setSigner` + funding — until then vouchers sign but cannot be redeemed.
 2. The DeltaVerse's `test:cyborg` script still runs `node --test test/` for dvengine and cyborgd; on Node 24 that fails as "1 test / 1 fail" — change to `node --test test/*.test.mjs` (cyborgd's own `npm test` already does).
 3. Insecure mode (no `LOGIN333_ISSUER`) is the dev default; a `/etc/cyborgd.env` copied from the example without editing runs insecure behind Apache — the health check shows `insecure:true`, watch it.
 4. The trusted lane trusts positions; only zones are enforced. The authoritative sim is a ground plane (no rapier server-side).

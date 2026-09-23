@@ -314,7 +314,7 @@ loopback only), `curl /cyborg/api/health`, the ledgers, log rotation, upgrade = 
 - Space-doc `script` components run in `node:vm` with a 50 ms limit per callback and a tiny API;
   `vm` is not a security boundary against a hostile member — only members (rung ≥ 2) may POST spaces.
 - One process, in-memory rooms: horizontal scale is by space (a space lives on one anchor).
-- `CyborgFaucet` at `0x447a…3952` is a **predicted** create3d address (not yet deployed); the LUV welcome
+- `CyborgFaucet` at `0xfa0C…f199` is a **predicted** create3d address (not yet deployed); the LUV welcome
   needs `ShambaLuvAirdrop.setSigner` + funding first.
 - Hashcash at 21 bits is a nuisance for a farm, not a wall.
 

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { Wallet, TypedDataEncoder, keccak256, toUtf8Bytes } from '../daemon/ethers.mjs';
 import { VoucherSigner, typeString, typeHash, domainOf, digestOf, domainSeparator, recover, verifyVoucher, nonceFor, DOMAINS, TYPES } from '../daemon/voucher.mjs';
 
-const FAUCET = '0x447aE1ACafec942210b8545218a3a5c5C24b3952', SPACE = '0x94Dd21aEF62a5370480C882D88DfD682527055b4', LUV = '0x2711111111683B8708cb9a48cBf36a51315F8254';
+const FAUCET = '0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199', SPACE = '0x5ace4baEc5b9F80cDe517Ed42D51F360Eb52595e', LUV = '0x2711111111683B8708cb9a48cBf36a51315F8254';
 const w = Wallet.createRandom(), signer = new VoucherSigner(w.privateKey);
 
 test('type strings + typehashes verbatim from cyborg-contracts (Drip / SpaceInit / Claim)', () => {

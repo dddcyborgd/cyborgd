@@ -219,7 +219,7 @@ export async function selftest(log = console.log) {
   let tamper = false; try { claimVerify(tok, Wallet.createRandom().address); tamper = true; } catch (e) { /* expected */ } ok('untrusted issuer rejected', !tamper);
   const ch = '0'.repeat(64); const nonce = solvePow(ch, 8); ok('pow solve/verify', verifyPow(ch, nonce, 8));
   const signer = new VoucherSigner(w.privateKey);
-  const v = await signer.drip({ chainId: 1, contract: '0x447aE1ACafec942210b8545218a3a5c5C24b3952', token: '0x99999923fAb5D50Df0F3b2F89a49d18EC82Bea79', to: w.address, amount: '1', nonce: '7', deadline: iat + 60 });
+  const v = await signer.drip({ chainId: 1, contract: '0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199', token: '0x99999923fAb5D50Df0F3b2F89a49d18EC82Bea79', to: w.address, amount: '1', nonce: '7', deadline: iat + 60 });
   ok('voucher recovers to signer', recover('cyborg-faucet', 1, v.contract, v.message, v.signature) === w.address);
   const tri = new core.Triad({ now: () => 1 });
   tri.step({ type: 'join', space: 's', sid: 'a', rung: 2 }); tri.step({ type: 'join', space: 's', sid: 'b', rung: 5 });

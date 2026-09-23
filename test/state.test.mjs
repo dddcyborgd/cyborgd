@@ -9,7 +9,7 @@ import { State, Ledger, Counters, dayKey } from '../daemon/state.mjs';
 import { Faucet } from '../daemon/faucet.mjs';
 import { VoucherSigner } from '../daemon/voucher.mjs';
 
-const TOK = [{ id: 'luv', chainId: 1, contract: '0x447aE1ACafec942210b8545218a3a5c5C24b3952', token: '0x2711111111683B8708cb9a48cBf36a51315F8254', faucet: 'cyborg-faucet', amount: '1', cooldownSec: 3600, capPerDay: 1, minRung: 'member' }];
+const TOK = [{ id: 'luv', chainId: 1, contract: '0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199', token: '0x2711111111683B8708cb9a48cBf36a51315F8254', faucet: 'cyborg-faucet', amount: '1', cooldownSec: 3600, capPerDay: 1, minRung: 'member' }];
 const signer = VoucherSigner.random(), user = Wallet.createRandom().address;
 
 test('JSONL ledger: append, replay, bad lines skipped, counters atomic + persisted', () => {

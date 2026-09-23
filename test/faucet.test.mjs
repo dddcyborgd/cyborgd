@@ -14,9 +14,9 @@ import { solvePow } from '../daemon/pow.mjs';
 const issuer = Wallet.createRandom(), user = Wallet.createRandom();
 const signer = new VoucherSigner(process.env.CYBORGD_SIGNER_KEY || Wallet.createRandom().privateKey);
 const TOKENS = [
-  { id: 'luv', label: 'LUV', chainId: 1, symbol: 'LUV', decimals: 18, contract: '0x447aE1ACafec942210b8545218a3a5c5C24b3952', token: '0x2711111111683B8708cb9a48cBf36a51315F8254', faucet: 'cyborg-faucet', amount: '1000', cooldownSec: 60, capPerDay: 2, minRung: 'member' },
-  { id: 'gas', label: '0G', chainId: 16661, symbol: '0G', decimals: 18, contract: '0x447aE1ACafec942210b8545218a3a5c5C24b3952', token: '0x0000000000000000000000000000000000000000', faucet: 'cyborg-faucet', amount: '1', cooldownSec: 0, capPerDay: 0, minRung: 'trader' },
-  { id: 'off', chainId: 1, contract: '0x447aE1ACafec942210b8545218a3a5c5C24b3952', token: '0x0000000000000000000000000000000000000000', faucet: 'cyborg-faucet', amount: '1', minRung: 'member', enabled: false },
+  { id: 'luv', label: 'LUV', chainId: 1, symbol: 'LUV', decimals: 18, contract: '0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199', token: '0x2711111111683B8708cb9a48cBf36a51315F8254', faucet: 'cyborg-faucet', amount: '1000', cooldownSec: 60, capPerDay: 2, minRung: 'member' },
+  { id: 'gas', label: '0G', chainId: 16661, symbol: '0G', decimals: 18, contract: '0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199', token: '0x0000000000000000000000000000000000000000', faucet: 'cyborg-faucet', amount: '1', cooldownSec: 0, capPerDay: 0, minRung: 'trader' },
+  { id: 'off', chainId: 1, contract: '0xfa0C63b5BD49a5eE2e725379D1728F0E966Ef199', token: '0x0000000000000000000000000000000000000000', faucet: 'cyborg-faucet', amount: '1', minRung: 'member', enabled: false },
 ];
 const claimFor = (rung) => { const iat = Math.floor(Date.now() / 1000); return claimSign(issuer, { iss: issuer.address, clientID: 'ov', sub: user.address, tier: 'member', rung, name: null, iat, exp: iat + 300 }); };
 const rejects = (p, code) => p.then(() => assert.fail('expected ' + code), (e) => { assert.ok(e instanceof FaucetError, String(e)); assert.equal(e.code, code); return e; });
