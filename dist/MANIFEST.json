@@ -3,8 +3,8 @@
   "version": "0.0.1-alpha",
   "global": "CyborgdCore",
   "file": "cyborgd-core.js",
-  "bytes": 96772,
-  "sha256": "92c8671600cdbcedf687856cf2e8ed23a68a7e5dd3b2fe2157f8f5a82296de38",
+  "bytes": 98152,
+  "sha256": "2de73f0ff4da23c1cbd31a135d8913238c633718db6633607c3fae916c862ad7",
   "modules": [
     {
       "name": "arcball",
@@ -43,7 +43,7 @@
     {
       "name": "protocol",
       "file": "core/protocol.mjs",
-      "sha256": "d5976b429e9be50767f4ff289f96dc34bbd19f6cd078d869a337363804e5381c",
+      "sha256": "018134500adffc2b44bebf9384e7a986889ae447f4c736d6cddb4b5245e9ef39",
       "exports": [
         "VERSION",
         "INVALID_LIMIT",
@@ -57,6 +57,7 @@
         "CLIENT_TYPES",
         "SERVER_TYPES",
         "EVENT_NAMES",
+        "ITEM_ACTIONS",
         "GESTURES",
         "AVATAR_KINDS",
         "ROLES",
@@ -177,7 +178,7 @@
     {
       "name": "aivatar",
       "file": "core/aivatar.mjs",
-      "sha256": "f5019d2fe51bb847bc4127ce436a08c788507f0ce5bb7959b982359b04e4ce37",
+      "sha256": "af013e236d5f7c933231cc01523525f6345465a61fdf56c750160d92847b381b",
       "exports": [
         "Riddler",
         "playerKeyOf",
@@ -187,6 +188,7 @@
         "EMOTIONS",
         "GESTURE_LINES",
         "GESTURE_ANIM",
+        "ITEM_LINES",
         "DEFAULT_SAY",
         "Agent",
         "BEHAVIOURS",

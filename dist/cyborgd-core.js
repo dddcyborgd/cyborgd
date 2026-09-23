@@ -194,8 +194,9 @@
     const CLIENT_TYPES = ['hello', 'state', 'cmd', 'msg', 'event', 'ping', 'rtc', 'mirror', 'lost'];
     const SERVER_TYPES = ['welcome', 'denied', 'joined', 'left', 'snap', 'ack', 'msg', 'voucher', 'say', 'pong', 'error',
                                  'peers', 'host', 'repoint', 'rtc'];
-    const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus'];
-    const GESTURES = ['smile', 'jawOpen', 'browsUp', 'nod'];
+    const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus', 'item'];
+    const ITEM_ACTIONS = ['use', 'raise', 'lower', 'select'];
+    const GESTURES = ['smile', 'jawOpen', 'browsUp', 'nod', 'greet', 'wave', 'point', 'raise', 'bow'];
     const AVATAR_KINDS = ['aivatar', 'vrm', 'primitive'];
     const ROLES = ['client', 'host', 'anchor'];
     const RTC_KINDS = ['offer', 'answer', 'ice'];
@@ -253,6 +254,7 @@
         if (!isObj(m.data)) return 'data';
         if (m.name === 'gesture' && !GESTURES.includes(m.data.name)) return 'gesture name';
         if (m.name === 'focus' && !(m.data.agent === null || isId(m.data.agent))) return 'focus agent';
+        if (m.name === 'item' && !(isStr(m.data.name, 32) && ITEM_ACTIONS.includes(m.data.action))) return 'item name/action';
         if (m.name === 'portal' && !isId(m.data.to)) return 'portal to';
         if (m.name === 'reach' && !isId(m.data.zone)) return 'reach zone';
         if (m.name === 'riddle' && !isId(m.data.agent)) return 'riddle agent';
@@ -330,6 +332,7 @@
     __exports["CLIENT_TYPES"] = CLIENT_TYPES;
     __exports["SERVER_TYPES"] = SERVER_TYPES;
     __exports["EVENT_NAMES"] = EVENT_NAMES;
+    __exports["ITEM_ACTIONS"] = ITEM_ACTIONS;
     __exports["GESTURES"] = GESTURES;
     __exports["AVATAR_KINDS"] = AVATAR_KINDS;
     __exports["ROLES"] = ROLES;
@@ -1165,8 +1168,11 @@
     const EMOTIONS = ['joy', 'curious', 'calm', 'wary'];
     const GESTURE_LINES = {
       smile: 'A smile — I mirror it back to you.', jawOpen: 'Oh! What surprised you?', browsUp: 'Raised brows. Curious, are we?', nod: 'I nod with you. Agreed.',
+      greet: 'Well met. I return the greeting.', wave: 'I wave back across the sphere.', point: 'You point — I look where you look.', raise: 'Raised high. I answer in kind.', bow: 'A bow. I bow to the participant.',
     };
-    const GESTURE_ANIM = { smile: 'smile', jawOpen: 'jawOpen', browsUp: 'browsUp', nod: 'nod' };
+    const GESTURE_ANIM = { smile: 'smile', jawOpen: 'jawOpen', browsUp: 'browsUp', nod: 'nod', greet: 'greet', wave: 'wave', point: 'point', raise: 'raise', bow: 'bow' };
+    // items of influence on the participant's sphere (sceptre, orb…): the aivatar answers a raised or used item
+    const ITEM_LINES = { raise: 'The {item} rises on your sphere — I feel its pull.', use: 'Your {item} speaks. I answer.', lower: 'The {item} rests.', select: 'The {item} — a fine choice.' };
     const DEFAULT_SAY = ['Welcome, participant.', 'I have a riddle, if you have a minute.', 'The fabric sees you.', 'Ask me who I am.'];
 
     const yawTo = (from, to) => Math.atan2(to[0] - from[0], -(to[2] - from[2]));
@@ -1263,6 +1269,13 @@
           return effects;
         },
       },
+      item: {
+        event(ag, player, ev) {
+          if (ev.name !== 'item' || !ev.data || !ITEM_LINES[ev.data.action]) return [];
+          const line = ITEM_LINES[ev.data.action].replace('{item}', String(ev.data.name));
+          return [ag.animate(ev.data.action === 'raise' ? 'raise' : ev.data.action === 'use' ? 'bow' : 'nod', 1600), ag.speak(line, ev.data.action === 'use' ? 'joy' : 'curious', player.sessionId, 3000)];
+        },
+      },
       mirror: {
         event(ag, player, ev) {
           if (ev.name !== 'gesture' || !GESTURE_ANIM[ev.data?.name]) return [];
@@ -1322,6 +1335,7 @@
     __exports["EMOTIONS"] = EMOTIONS;
     __exports["GESTURE_LINES"] = GESTURE_LINES;
     __exports["GESTURE_ANIM"] = GESTURE_ANIM;
+    __exports["ITEM_LINES"] = ITEM_LINES;
     __exports["DEFAULT_SAY"] = DEFAULT_SAY;
     __exports["Agent"] = Agent;
     __exports["BEHAVIOURS"] = BEHAVIOURS;

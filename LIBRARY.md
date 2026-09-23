@@ -6,12 +6,12 @@ Home: https://github.com/dddcyborgd/cyborgd · upstream: https://github.com/oncy
 
 | lane | files | lines | globals |
 |---|---:|---:|---|
-| `core/` | 13 | 1405 | — |
+| `core/` | 13 | 1417 | — |
 | `daemon/` | 15 | 1356 | — |
 | `registries/` | 4 | 174 | — |
 | `ops/` | 0 | 0 | — |
 | `scripts/` | 7 | 453 | — |
-| `test/` | 14 | 858 | — |
+| `test/` | 15 | 878 | — |
 | `skills/` | 0 | 0 | — |
 
 ## Archive (vendored upstream, pinned by sha)

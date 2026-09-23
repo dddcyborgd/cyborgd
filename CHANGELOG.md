@@ -30,3 +30,8 @@ The first release. One daemon, zero npm dependencies, Node 24.
   frame rotation sign (a target straight ahead read as "behind"), `INVALID_LIMIT` missing from the core
   index, relayed messages no longer also fire `onMessage`, `HEY *`/`HI *` chat reductions.
 - Home created at github.com/dddcyborgd/cyborgd (MIT). Upstream vendored by pinned sha (`archive/SOURCES.json`, `UPSTREAM.md`).
+
+## 0.0.1-alpha.1 — 2026-09-23
+
+- Protocol: `event{name:"item",data:{name,action}}` — the participant's sphere of influence (dvengine `DVSphere`: sceptre, orb) reaches the aivatar; gestures gain `greet` `wave` `point` `raise` `bow`.
+- Aivatar: new `item` behaviour (raise → raises its own arm; use → bows; a line naming the item).

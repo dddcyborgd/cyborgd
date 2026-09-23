@@ -13,7 +13,7 @@
     {
       "lane": "core",
       "files": 13,
-      "lines": 1405,
+      "lines": 1417,
       "globals": []
     },
     {
@@ -42,8 +42,8 @@
     },
     {
       "lane": "test",
-      "files": 14,
-      "lines": 858,
+      "files": 15,
+      "lines": 878,
       "globals": []
     },
     {
@@ -110,13 +110,13 @@
       {
         "lane": "core",
         "files": 13,
-        "lines": 1405,
+        "lines": 1417,
         "globals": [],
         "entries": [
           {
             "path": "core/aivatar.mjs",
-            "lines": 175,
-            "bytes": 10108,
+            "lines": 185,
+            "bytes": 11128,
             "globals": [],
             "banner": "cyborgd — aivatar · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
@@ -143,8 +143,8 @@
           },
           {
             "path": "core/protocol.mjs",
-            "lines": 149,
-            "bytes": 8320,
+            "lines": 151,
+            "bytes": 8558,
             "globals": [],
             "banner": "cyborgd — protocol · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
@@ -421,8 +421,8 @@
       },
       {
         "lane": "test",
-        "files": 14,
-        "lines": 858,
+        "files": 15,
+        "lines": 878,
         "globals": [],
         "entries": [
           {
@@ -459,6 +459,13 @@
             "bytes": 6694,
             "globals": [],
             "banner": "cyborgd — test faucet · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
+          },
+          {
+            "path": "test/item.test.mjs",
+            "lines": 20,
+            "bytes": 1120,
+            "globals": [],
+            "banner": "cyborgd — item.test · (c) 2026 BANKON / PYTHAI · MIT */"
           },
           {
             "path": "test/protocol.test.mjs",

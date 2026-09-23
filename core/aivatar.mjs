@@ -23,8 +23,11 @@ export const WANDER_SPEED = 1.2;
 export const EMOTIONS = ['joy', 'curious', 'calm', 'wary'];
 export const GESTURE_LINES = {
   smile: 'A smile — I mirror it back to you.', jawOpen: 'Oh! What surprised you?', browsUp: 'Raised brows. Curious, are we?', nod: 'I nod with you. Agreed.',
+  greet: 'Well met. I return the greeting.', wave: 'I wave back across the sphere.', point: 'You point — I look where you look.', raise: 'Raised high. I answer in kind.', bow: 'A bow. I bow to the participant.',
 };
-export const GESTURE_ANIM = { smile: 'smile', jawOpen: 'jawOpen', browsUp: 'browsUp', nod: 'nod' };
+export const GESTURE_ANIM = { smile: 'smile', jawOpen: 'jawOpen', browsUp: 'browsUp', nod: 'nod', greet: 'greet', wave: 'wave', point: 'point', raise: 'raise', bow: 'bow' };
+// items of influence on the participant's sphere (sceptre, orb…): the aivatar answers a raised or used item
+export const ITEM_LINES = { raise: 'The {item} rises on your sphere — I feel its pull.', use: 'Your {item} speaks. I answer.', lower: 'The {item} rests.', select: 'The {item} — a fine choice.' };
 export const DEFAULT_SAY = ['Welcome, participant.', 'I have a riddle, if you have a minute.', 'The fabric sees you.', 'Ask me who I am.'];
 
 const yawTo = (from, to) => Math.atan2(to[0] - from[0], -(to[2] - from[2]));
@@ -119,6 +122,13 @@ export const BEHAVIOURS = {
       }
       for (const sid of [...ag.near.keys()]) if (!list.some((pl) => pl.sessionId === sid)) ag.near.delete(sid);
       return effects;
+    },
+  },
+  item: {
+    event(ag, player, ev) {
+      if (ev.name !== 'item' || !ev.data || !ITEM_LINES[ev.data.action]) return [];
+      const line = ITEM_LINES[ev.data.action].replace('{item}', String(ev.data.name));
+      return [ag.animate(ev.data.action === 'raise' ? 'raise' : ev.data.action === 'use' ? 'bow' : 'nod', 1600), ag.speak(line, ev.data.action === 'use' ? 'joy' : 'curious', player.sessionId, 3000)];
     },
   },
   mirror: {
