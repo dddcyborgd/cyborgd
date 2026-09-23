@@ -1,0 +1,18 @@
+{
+  "$schema": "dddcyborgd/field-policy.v1",
+  "note": "The OVERLORD hierarchy's two dials on every participant's field of influence. outflow = how much the DeltaVerse (aivatars, zones, theme, other participants) is affected by the field; inflow = how much the field's subject is affected by the DeltaVerse. Per rung of deploy/privilege-tiers.json; the OVERLORD (or an appointed OVERSEER) edits this file or POSTs /field-policy with a claim of rung ≥ overseer. The DeltaVerse ALWAYS recognises a field (degree = r/max × outflow); max = the space extent − 1 (infinity − 1).",
+  "rungs": {
+    "participant":            { "outflow": 0.15, "inflow": 1.0 },
+    "recognized-participant": { "outflow": 0.30, "inflow": 1.0 },
+    "member":                 { "outflow": 0.50, "inflow": 0.9 },
+    "player":                 { "outflow": 0.65, "inflow": 0.8 },
+    "trader":                 { "outflow": 0.75, "inflow": 0.7 },
+    "owner":                  { "outflow": 0.90, "inflow": 0.5 },
+    "overseer":               { "outflow": 1.00, "inflow": 0.3 },
+    "overlord":               { "outflow": 1.00, "inflow": 0.1 },
+    "mastermind":             { "outflow": 1.00, "inflow": 0.0 }
+  },
+  "modes": ["open", "connected", "private"],
+  "defaultMode": { "participant": "open", "recognized-participant": "open", "member": "connected", "player": "connected", "trader": "connected", "owner": "connected", "overseer": "connected", "overlord": "connected" },
+  "privateRequiresSignature": true
+}

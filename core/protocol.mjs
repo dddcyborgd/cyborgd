@@ -25,6 +25,7 @@ export const SERVER_TYPES = ['welcome', 'denied', 'joined', 'left', 'snap', 'ack
                              'peers', 'host', 'repoint', 'rtc'];
 export const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus', 'item', 'field'];
 export const ITEM_ACTIONS = ['use', 'raise', 'lower', 'select'];
+export const FIELD_MODES = ['open', 'connected', 'private'];
 export const GESTURES = ['smile', 'jawOpen', 'browsUp', 'nod', 'greet', 'wave', 'point', 'raise', 'bow'];
 export const AVATAR_KINDS = ['aivatar', 'vrm', 'primitive'];
 export const ROLES = ['client', 'host', 'anchor'];
@@ -84,7 +85,11 @@ export const guards = {
     if (m.name === 'gesture' && !GESTURES.includes(m.data.name)) return 'gesture name';
     if (m.name === 'focus' && !(m.data.agent === null || isId(m.data.agent))) return 'focus agent';
     if (m.name === 'item' && !(isStr(m.data.name, 32) && ITEM_ACTIONS.includes(m.data.action))) return 'item name/action';
-    if (m.name === 'field' && !(isNum(m.data.r) && m.data.r >= 0 && isNum(m.data.max) && m.data.r <= m.data.max)) return 'field r/max';
+    if (m.name === 'field') {
+      if (!(isNum(m.data.r) && m.data.r >= 0 && isNum(m.data.max) && m.data.r <= m.data.max)) return 'field r/max';
+      if (m.data.mode != null && !FIELD_MODES.includes(m.data.mode)) return 'field mode';
+      if (m.data.links != null && !(Array.isArray(m.data.links) && m.data.links.length <= 64 && m.data.links.every((x) => isId(x)))) return 'field links';
+    }
     if (m.name === 'portal' && !isId(m.data.to)) return 'portal to';
     if (m.name === 'reach' && !isId(m.data.zone)) return 'reach zone';
     if (m.name === 'riddle' && !isId(m.data.agent)) return 'riddle agent';

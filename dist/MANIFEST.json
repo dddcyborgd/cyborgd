@@ -3,8 +3,8 @@
   "version": "0.0.1-alpha",
   "global": "CyborgdCore",
   "file": "cyborgd-core.js",
-  "bytes": 99357,
-  "sha256": "386d4fe7d90f302c529bcce122345148ac7d9e973eb9064af5e273913cf36cd2",
+  "bytes": 105431,
+  "sha256": "521e55ebc89afa882eff0d161889a176b41b251c2d50151f5058e6a524feda43",
   "modules": [
     {
       "name": "arcball",
@@ -22,6 +22,20 @@
         "shoulderOf",
         "orbit",
         "arcball"
+      ]
+    },
+    {
+      "name": "field",
+      "file": "core/field.mjs",
+      "sha256": "6c0a670d89cb2bf4b70cf750f638e44f8e565e4e7ad7088fe6e9ea8dd77b644e",
+      "exports": [
+        "DEFAULT_POLICY",
+        "policyFor",
+        "defaultMode",
+        "degree",
+        "atBound",
+        "visibleTo",
+        "normalise"
       ]
     },
     {
@@ -43,7 +57,7 @@
     {
       "name": "protocol",
       "file": "core/protocol.mjs",
-      "sha256": "99515a7641fae39810613ef5793e9c608caf7d2df81c4f8b7905315133997293",
+      "sha256": "98ec7be7762df3c6fbabc8c4da9cb0efe8f4f116176de55761e8f89da2f22639",
       "exports": [
         "VERSION",
         "INVALID_LIMIT",
@@ -58,6 +72,7 @@
         "SERVER_TYPES",
         "EVENT_NAMES",
         "ITEM_ACTIONS",
+        "FIELD_MODES",
         "GESTURES",
         "AVATAR_KINDS",
         "ROLES",
@@ -178,7 +193,7 @@
     {
       "name": "aivatar",
       "file": "core/aivatar.mjs",
-      "sha256": "8087d975082680f91b3073500c152088615dcf652d95596c50a7298e76d367a3",
+      "sha256": "c6f6fd75aa8061397dd9ee0070dc6fa072e9ec93d02b6300f0749127d2c6ede5",
       "exports": [
         "Riddler",
         "playerKeyOf",
@@ -198,10 +213,12 @@
     {
       "name": "rooms",
       "file": "core/rooms.mjs",
-      "sha256": "3d07adf80c207eee545ec33655c8e0ace2fdab98799a128f5aa8090b1889de60",
+      "sha256": "dcd70d50743f66d8c0b06878add03b4fb56124dd10061217990d8a8eea9363e0",
       "exports": [
         "GESTURES",
         "v3",
+        "FIELD_POLICY",
+        "setFieldPolicy",
         "DEFAULTS",
         "Latency",
         "sessionIdFor",
@@ -212,7 +229,7 @@
     {
       "name": "index",
       "file": "core/index.mjs",
-      "sha256": "17c4284ed49001a023d639b07471776a2e41f2c585398720d2185f745a8bd2de",
+      "sha256": "afb0de3e38514866022a5ddcc4b42480307019a1f60699ac6f8c3de157cd8da2",
       "exports": [
         "CORE_VERSION",
         "protocol",
@@ -227,6 +244,7 @@
         "rooms",
         "triad",
         "transport",
+        "field",
         "VERSION",
         "parseClient",
         "enc",
@@ -243,6 +261,8 @@
         "Room",
         "createRoom",
         "Latency",
+        "setFieldPolicy",
+        "FIELD_POLICY",
         "Agent",
         "createAgents",
         "BEHAVIOURS",
@@ -273,7 +293,13 @@
         "isTransport",
         "rng",
         "hashSeed",
-        "choose"
+        "choose",
+        "policyFor",
+        "defaultMode",
+        "fieldDegree",
+        "atBound",
+        "visibleTo",
+        "normaliseField"
       ]
     }
   ]

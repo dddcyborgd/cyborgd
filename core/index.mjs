@@ -17,7 +17,7 @@ export * as transport from './transport.mjs';
 
 export { VERSION, parseClient, enc, guards, isServerMessage, INVALID_LIMIT, CLIENT_TYPES, SERVER_TYPES } from './protocol.mjs';
 export { LADDER, rankOf, rungName, atLeast, rungOfClaim } from './ladder.mjs';
-export { Room, createRoom, Latency } from './rooms.mjs';
+export { Room, createRoom, Latency, setFieldPolicy, FIELD_POLICY } from './rooms.mjs';
 export { Agent, createAgents, BEHAVIOURS } from './aivatar.mjs';
 export { Riddler, Matcher } from './riddle.mjs';
 export { triadStep, Triad, elect, emptyTriad, ANCHOR } from './triad.mjs';
@@ -28,3 +28,5 @@ export { LoopbackTransport, RecordingTransport, BaseTransport, isTransport } fro
 export { rng, hashSeed, choose } from './seed.mjs';
 
 export const CORE_VERSION = '0.0.1-alpha';
+export * as field from './field.mjs';
+export { policyFor, defaultMode, degree as fieldDegree, atBound, visibleTo, normalise as normaliseField } from './field.mjs';

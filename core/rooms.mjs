@@ -16,6 +16,9 @@
 // rejected — the player is pushed back to their last accepted position and answered
 // error{code:"zone-locked", zone, minRole, p}.
 import { parseClient, enc, INVALID_LIMIT, STATE_HZ_MAX, GESTURES } from './protocol.mjs';
+import { policyFor, normalise as normaliseField } from './field.mjs';
+export let FIELD_POLICY = null; // the OVERLORD hierarchy's dials (registries/field-policy.json) — set by the anchor; hosts in a browser use the defaults
+export function setFieldPolicy(t) { FIELD_POLICY = t; }
 import { rankOf, rungName, atLeast } from './ladder.mjs';
 import { zoneAt, portalReach, validateZones, v3 } from './zones.mjs';
 import { delta, emptySnapshot } from './snapshot.mjs';
@@ -72,12 +75,14 @@ export class Room {
     const p = { sessionId, sub: identity.sub || null, rung, rank: rungName(rung), name: (hello.name || identity.name || 'participant').slice(0, 32), avatar: hello.avatar || { kind: 'primitive' }, vrm: hello.vrm || null,
       role: hello.role === 'host' ? 'host' : 'client', p: this.spawnFor(index), r: [0, 0, 0], a: 'idle', s: 1, txt: '', updatedAt: this.now(), latency: 0, jitter: 0, invalid: 0, zone: null, joinedAt: this.now(), index, tick: 0 };
     p.zone = zoneAt(this.zones, p.p)?.id || null;
+    p.signed = rung > 0; p.field = null; p.fieldDirty = false; // presence-only participants cannot make a field private
     const sess = { transport, player: p, latency: new Latency(), lastState: 0, stateCount: 0, stateWindow: this.now(), authority: this.authoritative ? new Authority({ p: p.p, dt: 1 / this.simRate }) : null, unsub: [] };
     this.players.set(sessionId, p); this.sessions.set(sessionId, sess);
     sess.unsub.push(transport.onMessage((m) => this.handle(sessionId, m)));
     sess.unsub.push(transport.onClose((code, reason) => this.leave(sessionId, reason || ('close ' + code))));
     transport.send(enc.welcome({ sessionId, space: this.id, room: { id: this.id, name: this.name, preset: this.preset, tone: this.tone, minRole: this.minRole, skin: this.def.skin || null, theme: this.def.theme || null },
       rung: p.rank, rank: rung, role: p.role, tick: this.tick_, authoritative: this.authoritative, zones: this.zones, spawn: p.p, insecure: this.insecure || undefined,
+      policy: policyFor(FIELD_POLICY, p.rank), fieldMax: this.fieldMax(),
       snap: this.snapshot(false) }));
     this.broadcast(enc.joined(p), [sessionId]);
     this.hooks.onJoin?.(p, this);
@@ -160,8 +165,11 @@ export class Room {
     this.hooks.onMessage?.(p, m, this);
     return { ok: true };
   }
+  /** the field of influence bound: the space extent − 1 (a thing must stay separate from infinity to be recognised) */
+  fieldMax() { const ext = Math.max(0, ...this.zones.map((z) => (z.bounds && z.bounds.r) || 0), this.def.extent || 0) || 70; return Math.max(1, ext - 1); }
   onEvent(s, m) {
     const p = s.player, effects = [];
+    if (m.name === 'field') { const max = this.fieldMax(); const data = { ...m.data, max: Math.min(m.data.max, max), r: Math.min(m.data.r, max) }; p.field = normaliseField(data, p, FIELD_POLICY); p.fieldDirty = true; m = { ...m, data: { ...data, mode: p.field.mode, links: p.field.links } }; }
     if (m.name === 'portal') {
       const z = this.zones.find((x) => x.id === m.data.to) || this.zones.find((x) => x.portalTo === m.data.to);
       if (!z) { this.strike(p.sessionId, 'invalid', 'unknown portal'); return { ok: false, code: 'unknown-portal' }; }
@@ -196,6 +204,7 @@ export class Room {
       if (z && !atLeast(p.rung, z.minRole)) { s.authority.teleport(s.lastGood || this.spawnFor(p.index)); p.p = s.authority.state.p; s.transport.send(enc.error('zone-locked', 'zone ' + z.id + ' requires ' + z.minRole, { zone: z.id, minRole: z.minRole, p: p.p })); }
       else s.lastGood = p.p;
       p.zone = zoneAt(this.zones, p.p)?.id || null;
+    p.signed = rung > 0; p.field = null; p.fieldDirty = false; // presence-only participants cannot make a field private
       s.transport.send(enc.ack(ack.tick, ack.seq, ack.checkpoint));
     }
     this.hooks.onUpdate?.(dt, this);
@@ -209,13 +218,15 @@ export class Room {
     const wire = enc.snap(d.tick, d.ts, d.players, d.agents, d.full);
     if (d.playersGone) wire.playersGone = d.playersGone; if (d.agentsGone) wire.agentsGone = d.agentsGone;
     this.broadcast(wire);
+    // connected fields reach only their links; private fields reach nobody but their signer
+    for (const p of this.players.values()) { if (!p.fieldDirty) continue; p.fieldDirty = false; if (!p.field || p.field.mode !== 'connected') continue; for (const sid of p.field.links) if (this.players.has(sid)) this.send({ type: 'msg', from: p.sessionId, data: { field: { r: p.field.r, max: p.field.max, mode: 'connected' } } }, sid); }
     return wire;
   }
   /** apply a snapshot from elsewhere (an anchor seeding a new host, a host restoring after repoint) */
   restore(snap) { if (!snap) return; for (const [id, a] of Object.entries(snap.agents || {})) { const ag = this.agents.get(id); if (ag) { ag.p = [...a.p]; ag.r = [...a.r]; ag.a = a.a; } } this.tick_ = Math.max(this.tick_, snap.tick || 0); }
   snapshot(changedOnly = false) {
     const players = {}, agents = {};
-    for (const p of this.players.values()) players[p.sessionId] = { p: p.p, r: p.r, a: p.a, s: p.s, txt: p.txt, name: p.name, rank: p.rank, role: p.role, zone: p.zone, tick: p.tick, updatedAt: p.updatedAt, latency: p.latency, jitter: p.jitter, ...(p.avatar ? { avatar: p.avatar } : {}) };
+    for (const p of this.players.values()) players[p.sessionId] = { p: p.p, r: p.r, a: p.a, s: p.s, txt: p.txt, name: p.name, rank: p.rank, role: p.role, zone: p.zone, tick: p.tick, updatedAt: p.updatedAt, latency: p.latency, jitter: p.jitter, ...(p.avatar ? { avatar: p.avatar } : {}), ...(p.field && (p.field.mode || 'open') === 'open' ? { field: { r: p.field.r, max: p.field.max, mode: 'open' } } : {}) };
     for (const ag of this.agents.values()) agents[ag.id] = ag.snapshot();
     const snap = { ...emptySnapshot(this.tick_, this.now()), players, agents };
     return changedOnly ? delta(this.lastSnap, snap) : snap;

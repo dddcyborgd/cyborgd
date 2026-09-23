@@ -25,6 +25,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Router, HttpError, VERSION } from './http.mjs';
+import { setFieldPolicy } from '../core/index.mjs';
 import { attach } from './ws.mjs';
 import { State } from './state.mjs';
 import { Faucet, FaucetError } from './faucet.mjs';
@@ -40,7 +41,7 @@ const readJson = (p) => JSON.parse(readFileSync(p, 'utf8'));
 
 export function loadRegistries(root = ROOT) {
   const r = (n) => readJson(join(root, 'registries', n));
-  return { rooms: r('rooms.json').rooms, tokens: r('faucet-tokens.json').tokens, chains: r('chains.json').chains, riddles: r('riddles.json').riddles };
+  return { rooms: r('rooms.json').rooms, tokens: r('faucet-tokens.json').tokens, chains: r('chains.json').chains, riddles: r('riddles.json').riddles, fieldPolicy: r('field-policy.json') };
 }
 
 export function configFromEnv(env = process.env, argv = process.argv.slice(2)) {
@@ -87,6 +88,7 @@ export function llmFromUrl(url, { fetchFn = globalThis.fetch, model = 'default',
 
 /** build the whole daemon (no listen) — tests and --selftest construct it in-process */
 export function createDaemon(cfg, { log = (...a) => console.log('[cyborgd]', ...a), registries = loadRegistries(), now = Date.now } = {}) {
+  if (registries.fieldPolicy) setFieldPolicy(registries.fieldPolicy);
   const state = new State(cfg.stateDir);
   const tokens = registries.tokens.map((t) => {
     const o = { ...t };
@@ -127,6 +129,16 @@ export function createDaemon(cfg, { log = (...a) => console.log('[cyborgd]', ...
     if (anchor.rooms.get(params.id)?.def.dynamic && anchor.rooms.get(params.id).size === 0) anchor.rooms.delete(params.id);
     state.rooms.append({ kind: 'space', space: params.id, sub: id.sub });
     return { ok: true, id: params.id, stored: path.replace(cfg.stateDir, 'state'), insecure: anchor.insecure || undefined };
+  });
+  // the field of influence policy — the OVERLORD hierarchy's two dials per rung; readable by all, editable by an OVERSEER+ claim
+  router.get('/field-policy', () => ({ policy: registries.fieldPolicy, source: 'registries/field-policy.json' }));
+  router.post('/field-policy', ({ body, claimToken }) => {
+    let id; try { id = identify(claimToken, cfg.issuer); } catch (e) { throw new HttpError(401, 'bad-claim', String(e.message || e)); }
+    if (!atLeast(id.rung, 'overseer')) throw new HttpError(403, 'rung', 'field-policy needs an OVERSEER or OVERLORD claim', { rung: id.rank });
+    if (!body || typeof body.rungs !== 'object') throw new HttpError(400, 'shape', 'body.rungs required');
+    for (const [k, v] of Object.entries(body.rungs)) { if (!v || typeof v.outflow !== 'number' || typeof v.inflow !== 'number') throw new HttpError(400, 'shape', 'rung ' + k + ' needs outflow+inflow'); registries.fieldPolicy.rungs[k] = { outflow: Math.max(0, Math.min(1, v.outflow)), inflow: Math.max(0, Math.min(1, v.inflow)) }; }
+    setFieldPolicy(registries.fieldPolicy); log('field-policy updated by', id.sub, JSON.stringify(body.rungs));
+    return { ok: true, policy: registries.fieldPolicy };
   });
   router.get('/faucet/tokens', () => ({ tokens: faucet.tokensPublic(), chains, insecure: anchor.insecure }));
   router.get('/faucet/challenge', () => faucet.challenge());

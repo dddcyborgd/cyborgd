@@ -108,6 +108,47 @@
     return __exports;
   })();
 
+  // ── core/field.mjs ──
+  __mods["field"] = (function () {
+    var __exports = {};
+    /*! cyborgd — field · the field of influence policy (pure) · (c) 2026 BANKON / PYTHAI · MIT */
+    // The DeltaVerse ALWAYS recognises a participant's field of influence. The OVERLORD hierarchy holds two dials per rung:
+    //   outflow — how much the DeltaVerse is affected by the field;  inflow — how much the field's subject is affected by the DeltaVerse.
+    // A field is `open` (everyone), `connected` (only the participants it links to) or `private` (its signer only — needs a signed claim).
+    // max radius = the space extent − 1: a thing must stay separate from infinity to be recognised (infinity − 1).
+    const DEFAULT_POLICY = { outflow: 0.15, inflow: 1 };
+    function policyFor(table, rung) { const t = (table && table.rungs) || {}; return t[rung] || t.participant || DEFAULT_POLICY; }
+    function defaultMode(table, rung) { const d = (table && table.defaultMode) || {}; return d[rung] || 'open'; }
+    /** recognition degree in [0,1]: how far the field reaches, weighted by what the hierarchy lets it affect */
+    function degree(field, policy) { if (!field || !(field.max > 0)) return 0; return Math.max(0, Math.min(1, field.r / field.max)) * (policy ? policy.outflow : 1); }
+    function atBound(field, eps = 0.5) { return !!field && field.max > 0 && field.r >= field.max - eps; }
+    /** may `viewer` see / be affected by `owner`'s field? */
+    function visibleTo(ownerField, ownerSid, viewerSid) {
+      if (!ownerField || ownerSid === viewerSid) return true;
+      const mode = ownerField.mode || 'open';
+      if (mode === 'open') return true;
+      if (mode === 'connected') return Array.isArray(ownerField.links) && ownerField.links.includes(viewerSid);
+      return false; // private
+    }
+    /** normalise an incoming field event into the stored shape (privacy needs a signed claim) */
+    function normalise(ev, player, table) {
+      const rung = typeof player.rank === 'string' ? player.rank : (typeof player.rung === 'string' ? player.rung : 'participant'); // rooms keep the NAME in .rank and the number in .rung
+      let mode = ev.mode || (player.field && player.field.mode) || defaultMode(table, rung);
+      if (mode === 'private' && !player.signed) mode = 'open';
+      const links = Array.isArray(ev.links) ? ev.links.slice(0, 64) : ((player.field && player.field.links) || []);
+      return { r: ev.r, max: ev.max, at: ev.at || null, mode, links, policy: policyFor(table, rung) };
+    }
+
+    __exports["DEFAULT_POLICY"] = DEFAULT_POLICY;
+    __exports["policyFor"] = policyFor;
+    __exports["defaultMode"] = defaultMode;
+    __exports["degree"] = degree;
+    __exports["atBound"] = atBound;
+    __exports["visibleTo"] = visibleTo;
+    __exports["normalise"] = normalise;
+    return __exports;
+  })();
+
   // ── core/ladder.mjs ──
   __mods["ladder"] = (function () {
     var __exports = {};
@@ -196,6 +237,7 @@
                                  'peers', 'host', 'repoint', 'rtc'];
     const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus', 'item', 'field'];
     const ITEM_ACTIONS = ['use', 'raise', 'lower', 'select'];
+    const FIELD_MODES = ['open', 'connected', 'private'];
     const GESTURES = ['smile', 'jawOpen', 'browsUp', 'nod', 'greet', 'wave', 'point', 'raise', 'bow'];
     const AVATAR_KINDS = ['aivatar', 'vrm', 'primitive'];
     const ROLES = ['client', 'host', 'anchor'];
@@ -255,7 +297,11 @@
         if (m.name === 'gesture' && !GESTURES.includes(m.data.name)) return 'gesture name';
         if (m.name === 'focus' && !(m.data.agent === null || isId(m.data.agent))) return 'focus agent';
         if (m.name === 'item' && !(isStr(m.data.name, 32) && ITEM_ACTIONS.includes(m.data.action))) return 'item name/action';
-        if (m.name === 'field' && !(isNum(m.data.r) && m.data.r >= 0 && isNum(m.data.max) && m.data.r <= m.data.max)) return 'field r/max';
+        if (m.name === 'field') {
+          if (!(isNum(m.data.r) && m.data.r >= 0 && isNum(m.data.max) && m.data.r <= m.data.max)) return 'field r/max';
+          if (m.data.mode != null && !FIELD_MODES.includes(m.data.mode)) return 'field mode';
+          if (m.data.links != null && !(Array.isArray(m.data.links) && m.data.links.length <= 64 && m.data.links.every((x) => isId(x)))) return 'field links';
+        }
         if (m.name === 'portal' && !isId(m.data.to)) return 'portal to';
         if (m.name === 'reach' && !isId(m.data.zone)) return 'reach zone';
         if (m.name === 'riddle' && !isId(m.data.agent)) return 'riddle agent';
@@ -334,6 +380,7 @@
     __exports["SERVER_TYPES"] = SERVER_TYPES;
     __exports["EVENT_NAMES"] = EVENT_NAMES;
     __exports["ITEM_ACTIONS"] = ITEM_ACTIONS;
+    __exports["FIELD_MODES"] = FIELD_MODES;
     __exports["GESTURES"] = GESTURES;
     __exports["AVATAR_KINDS"] = AVATAR_KINDS;
     __exports["ROLES"] = ROLES;
@@ -1257,7 +1304,8 @@
         update(ag, dt, list) {
           const effects = [];
           for (const pl of list) {
-            const reach = Math.max(GREET_RANGE, (pl.field && pl.field.r) || 0); // the participant's field of influence widens the greeting
+            const out = (pl.field && pl.field.policy) ? pl.field.policy.outflow : 1; // the hierarchy's dial on this participant's field
+            const reach = Math.max(GREET_RANGE, ((pl.field && pl.field.r) || 0) * out); // the field widens the greeting by what it may affect
             const d = v3.dist(ag.p, pl.p), was = ag.near.get(pl.sessionId) || false, now = d <= reach;
             if (now && !was) {
               const idx = ag.indexOf(pl);
@@ -1277,7 +1325,10 @@
       field: {
         event(ag, player, ev) {
           if (ev.name !== 'field' || !ev.data) return [];
-          player.field = { r: ev.data.r, max: ev.data.max, at: ev.data.at || null, t: ag.now ? ag.now() : Date.now() };
+          const prev = player.field || {};
+          player.field = Object.assign({}, prev, { r: ev.data.r, max: ev.data.max, at: ev.data.at || null, mode: ev.data.mode || prev.mode || 'open', links: ev.data.links || prev.links || [] });
+          const out = (player.field.policy && player.field.policy.outflow != null) ? player.field.policy.outflow : 1;
+          if (out <= 0) return []; // the hierarchy lets this field affect nothing
           if (ev.data.at === 'bound') { ag.face(player.p); return [ag.animate('raise', 1800), ag.speak('Your field reaches the edge of this space — one short of everything. The DeltaVerse recognises you, ' + (player.name || 'participant') + '.', 'joy', player.sessionId, 4000)]; }
           return [];
         },
@@ -1360,6 +1411,7 @@
   __mods["rooms"] = (function () {
     var __exports = {};
     var parseClient = __get("protocol").parseClient, enc = __get("protocol").enc, INVALID_LIMIT = __get("protocol").INVALID_LIMIT, STATE_HZ_MAX = __get("protocol").STATE_HZ_MAX, GESTURES = __get("protocol").GESTURES;
+    var policyFor = __get("field").policyFor, normaliseField = __get("field").normalise;
     var rankOf = __get("ladder").rankOf, rungName = __get("ladder").rungName, atLeast = __get("ladder").atLeast;
     var zoneAt = __get("zones").zoneAt, portalReach = __get("zones").portalReach, validateZones = __get("zones").validateZones, v3 = __get("zones").v3;
     var delta = __get("snapshot").delta, emptySnapshot = __get("snapshot").emptySnapshot;
@@ -1384,6 +1436,9 @@
     // rejected — the player is pushed back to their last accepted position and answered
     // error{code:"zone-locked", zone, minRole, p}.
 
+
+    let FIELD_POLICY = null; // the OVERLORD hierarchy's dials (registries/field-policy.json) — set by the anchor; hosts in a browser use the defaults
+    function setFieldPolicy(t) { FIELD_POLICY = t; }
 
 
 
@@ -1439,12 +1494,14 @@
         const p = { sessionId, sub: identity.sub || null, rung, rank: rungName(rung), name: (hello.name || identity.name || 'participant').slice(0, 32), avatar: hello.avatar || { kind: 'primitive' }, vrm: hello.vrm || null,
           role: hello.role === 'host' ? 'host' : 'client', p: this.spawnFor(index), r: [0, 0, 0], a: 'idle', s: 1, txt: '', updatedAt: this.now(), latency: 0, jitter: 0, invalid: 0, zone: null, joinedAt: this.now(), index, tick: 0 };
         p.zone = zoneAt(this.zones, p.p)?.id || null;
+        p.signed = rung > 0; p.field = null; p.fieldDirty = false; // presence-only participants cannot make a field private
         const sess = { transport, player: p, latency: new Latency(), lastState: 0, stateCount: 0, stateWindow: this.now(), authority: this.authoritative ? new Authority({ p: p.p, dt: 1 / this.simRate }) : null, unsub: [] };
         this.players.set(sessionId, p); this.sessions.set(sessionId, sess);
         sess.unsub.push(transport.onMessage((m) => this.handle(sessionId, m)));
         sess.unsub.push(transport.onClose((code, reason) => this.leave(sessionId, reason || ('close ' + code))));
         transport.send(enc.welcome({ sessionId, space: this.id, room: { id: this.id, name: this.name, preset: this.preset, tone: this.tone, minRole: this.minRole, skin: this.def.skin || null, theme: this.def.theme || null },
           rung: p.rank, rank: rung, role: p.role, tick: this.tick_, authoritative: this.authoritative, zones: this.zones, spawn: p.p, insecure: this.insecure || undefined,
+          policy: policyFor(FIELD_POLICY, p.rank), fieldMax: this.fieldMax(),
           snap: this.snapshot(false) }));
         this.broadcast(enc.joined(p), [sessionId]);
         this.hooks.onJoin?.(p, this);
@@ -1527,8 +1584,11 @@
         this.hooks.onMessage?.(p, m, this);
         return { ok: true };
       }
+      /** the field of influence bound: the space extent − 1 (a thing must stay separate from infinity to be recognised) */
+      fieldMax() { const ext = Math.max(0, ...this.zones.map((z) => (z.bounds && z.bounds.r) || 0), this.def.extent || 0) || 70; return Math.max(1, ext - 1); }
       onEvent(s, m) {
         const p = s.player, effects = [];
+        if (m.name === 'field') { const max = this.fieldMax(); const data = { ...m.data, max: Math.min(m.data.max, max), r: Math.min(m.data.r, max) }; p.field = normaliseField(data, p, FIELD_POLICY); p.fieldDirty = true; m = { ...m, data: { ...data, mode: p.field.mode, links: p.field.links } }; }
         if (m.name === 'portal') {
           const z = this.zones.find((x) => x.id === m.data.to) || this.zones.find((x) => x.portalTo === m.data.to);
           if (!z) { this.strike(p.sessionId, 'invalid', 'unknown portal'); return { ok: false, code: 'unknown-portal' }; }
@@ -1563,6 +1623,7 @@
           if (z && !atLeast(p.rung, z.minRole)) { s.authority.teleport(s.lastGood || this.spawnFor(p.index)); p.p = s.authority.state.p; s.transport.send(enc.error('zone-locked', 'zone ' + z.id + ' requires ' + z.minRole, { zone: z.id, minRole: z.minRole, p: p.p })); }
           else s.lastGood = p.p;
           p.zone = zoneAt(this.zones, p.p)?.id || null;
+        p.signed = rung > 0; p.field = null; p.fieldDirty = false; // presence-only participants cannot make a field private
           s.transport.send(enc.ack(ack.tick, ack.seq, ack.checkpoint));
         }
         this.hooks.onUpdate?.(dt, this);
@@ -1576,13 +1637,15 @@
         const wire = enc.snap(d.tick, d.ts, d.players, d.agents, d.full);
         if (d.playersGone) wire.playersGone = d.playersGone; if (d.agentsGone) wire.agentsGone = d.agentsGone;
         this.broadcast(wire);
+        // connected fields reach only their links; private fields reach nobody but their signer
+        for (const p of this.players.values()) { if (!p.fieldDirty) continue; p.fieldDirty = false; if (!p.field || p.field.mode !== 'connected') continue; for (const sid of p.field.links) if (this.players.has(sid)) this.send({ type: 'msg', from: p.sessionId, data: { field: { r: p.field.r, max: p.field.max, mode: 'connected' } } }, sid); }
         return wire;
       }
       /** apply a snapshot from elsewhere (an anchor seeding a new host, a host restoring after repoint) */
       restore(snap) { if (!snap) return; for (const [id, a] of Object.entries(snap.agents || {})) { const ag = this.agents.get(id); if (ag) { ag.p = [...a.p]; ag.r = [...a.r]; ag.a = a.a; } } this.tick_ = Math.max(this.tick_, snap.tick || 0); }
       snapshot(changedOnly = false) {
         const players = {}, agents = {};
-        for (const p of this.players.values()) players[p.sessionId] = { p: p.p, r: p.r, a: p.a, s: p.s, txt: p.txt, name: p.name, rank: p.rank, role: p.role, zone: p.zone, tick: p.tick, updatedAt: p.updatedAt, latency: p.latency, jitter: p.jitter, ...(p.avatar ? { avatar: p.avatar } : {}) };
+        for (const p of this.players.values()) players[p.sessionId] = { p: p.p, r: p.r, a: p.a, s: p.s, txt: p.txt, name: p.name, rank: p.rank, role: p.role, zone: p.zone, tick: p.tick, updatedAt: p.updatedAt, latency: p.latency, jitter: p.jitter, ...(p.avatar ? { avatar: p.avatar } : {}), ...(p.field && (p.field.mode || 'open') === 'open' ? { field: { r: p.field.r, max: p.field.max, mode: 'open' } } : {}) };
         for (const ag of this.agents.values()) agents[ag.id] = ag.snapshot();
         const snap = { ...emptySnapshot(this.tick_, this.now()), players, agents };
         return changedOnly ? delta(this.lastSnap, snap) : snap;
@@ -1594,6 +1657,8 @@
 
     __exports["GESTURES"] = GESTURES;
     __exports["v3"] = v3;
+    __exports["FIELD_POLICY"] = FIELD_POLICY;
+    __exports["setFieldPolicy"] = setFieldPolicy;
     __exports["DEFAULTS"] = DEFAULTS;
     __exports["Latency"] = Latency;
     __exports["sessionIdFor"] = sessionIdFor;
@@ -1617,6 +1682,7 @@
     __exports["rooms"] = __get("rooms");
     __exports["triad"] = __get("triad");
     __exports["transport"] = __get("transport");
+    __exports["field"] = __get("field");
     /*! cyborgd — core index · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */
     // The isomorphic core: PURE JS, no node-only imports, no Buffer/fs/process. Time is injected via now(),
     // randomness only from seeds. Runs unchanged in a browser (dist/cyborgd-core.js → window.CyborgdCore)
@@ -1646,6 +1712,7 @@
 
     const CORE_VERSION = '0.0.1-alpha';
 
+
     __exports["VERSION"] = __get("protocol").VERSION;
     __exports["parseClient"] = __get("protocol").parseClient;
     __exports["enc"] = __get("protocol").enc;
@@ -1662,6 +1729,8 @@
     __exports["Room"] = __get("rooms").Room;
     __exports["createRoom"] = __get("rooms").createRoom;
     __exports["Latency"] = __get("rooms").Latency;
+    __exports["setFieldPolicy"] = __get("rooms").setFieldPolicy;
+    __exports["FIELD_POLICY"] = __get("rooms").FIELD_POLICY;
     __exports["Agent"] = __get("aivatar").Agent;
     __exports["createAgents"] = __get("aivatar").createAgents;
     __exports["BEHAVIOURS"] = __get("aivatar").BEHAVIOURS;
@@ -1693,11 +1762,17 @@
     __exports["rng"] = __get("seed").rng;
     __exports["hashSeed"] = __get("seed").hashSeed;
     __exports["choose"] = __get("seed").choose;
+    __exports["policyFor"] = __get("field").policyFor;
+    __exports["defaultMode"] = __get("field").defaultMode;
+    __exports["fieldDegree"] = __get("field").degree;
+    __exports["atBound"] = __get("field").atBound;
+    __exports["visibleTo"] = __get("field").visibleTo;
+    __exports["normaliseField"] = __get("field").normalise;
     __exports["CORE_VERSION"] = CORE_VERSION;
     return __exports;
   })();
 
-  var core = __mods.index; core.modules = __mods; core.BUILD = {"version":"0.0.1-alpha","files":["arcball.mjs","ladder.mjs","protocol.mjs","riddle.mjs","seed.mjs","sim.mjs","snapshot.mjs","transport.mjs","triad.mjs","zones.mjs","aivatar.mjs","rooms.mjs","index.mjs"]};
+  var core = __mods.index; core.modules = __mods; core.BUILD = {"version":"0.0.1-alpha","files":["arcball.mjs","field.mjs","ladder.mjs","protocol.mjs","riddle.mjs","seed.mjs","sim.mjs","snapshot.mjs","transport.mjs","triad.mjs","zones.mjs","aivatar.mjs","rooms.mjs","index.mjs"]};
   if (typeof module !== 'undefined' && module.exports) module.exports = core;
   root.CyborgdCore = core;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

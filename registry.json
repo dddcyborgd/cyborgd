@@ -12,20 +12,20 @@
   "lanes": [
     {
       "lane": "core",
-      "files": 13,
-      "lines": 1417,
+      "files": 14,
+      "lines": 1480,
       "globals": []
     },
     {
       "lane": "daemon",
       "files": 15,
-      "lines": 1356,
+      "lines": 1368,
       "globals": []
     },
     {
       "lane": "registries",
-      "files": 4,
-      "lines": 174,
+      "files": 5,
+      "lines": 193,
       "globals": []
     },
     {
@@ -42,8 +42,8 @@
     },
     {
       "lane": "test",
-      "files": 15,
-      "lines": 878,
+      "files": 16,
+      "lines": 935,
       "globals": []
     },
     {
@@ -109,14 +109,14 @@
     "lanes": [
       {
         "lane": "core",
-        "files": 13,
-        "lines": 1417,
+        "files": 14,
+        "lines": 1480,
         "globals": [],
         "entries": [
           {
             "path": "core/aivatar.mjs",
-            "lines": 185,
-            "bytes": 11128,
+            "lines": 201,
+            "bytes": 12579,
             "globals": [],
             "banner": "cyborgd — aivatar · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
@@ -128,9 +128,16 @@
             "banner": "cyborgd — arcball · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
           {
+            "path": "core/field.mjs",
+            "lines": 28,
+            "bytes": 2391,
+            "globals": [],
+            "banner": "cyborgd — field · the field of influence policy (pure) · (c) 2026 BANKON / PYTHAI · MIT */"
+          },
+          {
             "path": "core/index.mjs",
-            "lines": 31,
-            "bytes": 1776,
+            "lines": 33,
+            "bytes": 1970,
             "globals": [],
             "banner": "cyborgd — core index · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
@@ -143,8 +150,8 @@
           },
           {
             "path": "core/protocol.mjs",
-            "lines": 151,
-            "bytes": 8558,
+            "lines": 157,
+            "bytes": 9025,
             "globals": [],
             "banner": "cyborgd — protocol · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
@@ -157,8 +164,8 @@
           },
           {
             "path": "core/rooms.mjs",
-            "lines": 228,
-            "bytes": 15684,
+            "lines": 239,
+            "bytes": 17405,
             "globals": [],
             "banner": "cyborgd — rooms · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
@@ -209,7 +216,7 @@
       {
         "lane": "daemon",
         "files": 15,
-        "lines": 1356,
+        "lines": 1368,
         "globals": [],
         "entries": [
           {
@@ -221,8 +228,8 @@
           },
           {
             "path": "daemon/cyborgd.mjs",
-            "lines": 236,
-            "bytes": 16309,
+            "lines": 248,
+            "bytes": 17668,
             "globals": [],
             "banner": "cyborgd — daemon entry · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
@@ -321,8 +328,8 @@
       },
       {
         "lane": "registries",
-        "files": 4,
-        "lines": 174,
+        "files": 5,
+        "lines": 193,
         "globals": [],
         "entries": [
           {
@@ -336,6 +343,13 @@
             "path": "registries/faucet-tokens.json",
             "lines": 49,
             "bytes": 4185,
+            "globals": [],
+            "banner": ""
+          },
+          {
+            "path": "registries/field-policy.json",
+            "lines": 19,
+            "bytes": 1494,
             "globals": [],
             "banner": ""
           },
@@ -421,8 +435,8 @@
       },
       {
         "lane": "test",
-        "files": 15,
-        "lines": 878,
+        "files": 16,
+        "lines": 935,
         "globals": [],
         "entries": [
           {
@@ -461,9 +475,16 @@
             "banner": "cyborgd — test faucet · (c) 2026 BANKON / PYTHAI · MIT · upstream patterns © oncyberio (MIT) */"
           },
           {
+            "path": "test/field.test.mjs",
+            "lines": 53,
+            "bytes": 3936,
+            "globals": [],
+            "banner": "cyborgd — field.test · the field of influence policy · (c) 2026 BANKON / PYTHAI · MIT */"
+          },
+          {
             "path": "test/item.test.mjs",
-            "lines": 20,
-            "bytes": 1120,
+            "lines": 24,
+            "bytes": 1433,
             "globals": [],
             "banner": "cyborgd — item.test · (c) 2026 BANKON / PYTHAI · MIT */"
           },

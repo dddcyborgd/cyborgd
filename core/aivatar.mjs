@@ -111,7 +111,8 @@ export const BEHAVIOURS = {
     update(ag, dt, list) {
       const effects = [];
       for (const pl of list) {
-        const reach = Math.max(GREET_RANGE, (pl.field && pl.field.r) || 0); // the participant's field of influence widens the greeting
+        const out = (pl.field && pl.field.policy) ? pl.field.policy.outflow : 1; // the hierarchy's dial on this participant's field
+        const reach = Math.max(GREET_RANGE, ((pl.field && pl.field.r) || 0) * out); // the field widens the greeting by what it may affect
         const d = v3.dist(ag.p, pl.p), was = ag.near.get(pl.sessionId) || false, now = d <= reach;
         if (now && !was) {
           const idx = ag.indexOf(pl);
@@ -131,7 +132,10 @@ export const BEHAVIOURS = {
   field: {
     event(ag, player, ev) {
       if (ev.name !== 'field' || !ev.data) return [];
-      player.field = { r: ev.data.r, max: ev.data.max, at: ev.data.at || null, t: ag.now ? ag.now() : Date.now() };
+      const prev = player.field || {};
+      player.field = Object.assign({}, prev, { r: ev.data.r, max: ev.data.max, at: ev.data.at || null, mode: ev.data.mode || prev.mode || 'open', links: ev.data.links || prev.links || [] });
+      const out = (player.field.policy && player.field.policy.outflow != null) ? player.field.policy.outflow : 1;
+      if (out <= 0) return []; // the hierarchy lets this field affect nothing
       if (ev.data.at === 'bound') { ag.face(player.p); return [ag.animate('raise', 1800), ag.speak('Your field reaches the edge of this space — one short of everything. The DeltaVerse recognises you, ' + (player.name || 'participant') + '.', 'joy', player.sessionId, 4000)]; }
       return [];
     },

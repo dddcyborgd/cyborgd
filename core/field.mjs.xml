@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doc for="core/protocol.mjs" repo="dddcyborgd/cyborgd" generatedBy="scripts/doc-js.mjs">
+<doc for="core/field.mjs" repo="dddcyborgd/cyborgd" generatedBy="scripts/doc-js.mjs">
   <lane>isomorphic</lane>
   <kind>core</kind>
-  <github sha="8f7ca5e47231a3e7463bdcfcc9dd5dffe2faf12a" upstream="https://github.com/dddcyborgd/cyborgd"/>
+  <github sha="de7c7f4dc33a84364549e457086d6ee0537c92b3" upstream="https://github.com/dddcyborgd/cyborgd"/>
   <migration target="stays-mjs" status="live">
     <how>Pure JS shared by the browser host (dist/cyborgd-core.js → window.CyborgdCore) and the daemon: no node imports, no Math.random, time via now().</how>
     <why>THE TRIAD: the participant hosting a space runs the very same simulation the anchor runs.</why>
