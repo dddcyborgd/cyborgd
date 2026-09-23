@@ -144,7 +144,7 @@ health `curl /cyborg/api/health`, ledgers, upgrade = pull + restart; `deploy-del
 ## 8. Live numbers (2026-09-23)
 
 - cyborgd: 13 core modules · 16 daemon modules · 4 registries (7 rooms · 6 tokens · 4 chains · 11 riddles) · **55 tests** in 14 files + 10 selftest checks · `dist/cyborgd-core.js` ≈ 96.8 KB, 62 exports · 4 archived upstream repos (114 files) · 1 vendored library.
-- dvengine: 48 components · 9 test files · net lane 4 files (DVNet/DVPeer/DVHost/interp).
+- dvengine 0.0.2-alpha: 47 components · 92 tests · 205 files (input lane: DVJoystick/DVChords/DVMouseStick/DVSenseStick/DVControls; the field of influence DVField with sceptre + orb) · net lane 4 files (DVNet/DVPeer/DVHost/interp).
 - cyborg-contracts: 4 immutable + 1 upgradeable (+ proxy) · **45 forge tests / 5 suites** · rehearsed on anvil, **not deployed**, not externally audited.
 - DeltaVerse: suite E13 · `cyborg/` gathered · unit + Apache snippet wired in `deploy/web2/`.
 
