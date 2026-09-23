@@ -35,3 +35,4 @@ The first release. One daemon, zero npm dependencies, Node 24.
 
 - Protocol: `event{name:"item",data:{name,action}}` — the participant's sphere of influence (dvengine `DVSphere`: sceptre, orb) reaches the aivatar; gestures gain `greet` `wave` `point` `raise` `bow`.
 - Aivatar: new `item` behaviour (raise → raises its own arm; use → bows; a line naming the item).
+- Protocol: `event{name:"field",data:{r,max,at?}}` — the participant's resizable field of influence (max = space extent − 1: infinity − 1). Aivatar `field` behaviour: greet range widens to the field; at the bound it recognises the participant.

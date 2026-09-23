@@ -2,7 +2,7 @@
 <doc for="test/item.test.mjs" repo="dddcyborgd/cyborgd" generatedBy="scripts/doc-js.mjs">
   <lane>node</lane>
   <kind>test</kind>
-  <github sha="7a9babcd6ac4e38b73a230971a73a439666944ca" upstream="https://github.com/dddcyborgd/cyborgd"/>
+  <github sha="d30a2dbc48a70bf5f7c038d6556b95124cfbf67a" upstream="https://github.com/dddcyborgd/cyborgd"/>
   <migration target="stays-mjs" status="live">
     <how>node --test.</how>
     <why>No test framework dependency.</why>

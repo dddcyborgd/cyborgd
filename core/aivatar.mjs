@@ -111,7 +111,8 @@ export const BEHAVIOURS = {
     update(ag, dt, list) {
       const effects = [];
       for (const pl of list) {
-        const d = v3.dist(ag.p, pl.p), was = ag.near.get(pl.sessionId) || false, now = d <= GREET_RANGE;
+        const reach = Math.max(GREET_RANGE, (pl.field && pl.field.r) || 0); // the participant's field of influence widens the greeting
+        const d = v3.dist(ag.p, pl.p), was = ag.near.get(pl.sessionId) || false, now = d <= reach;
         if (now && !was) {
           const idx = ag.indexOf(pl);
           ag.face(pl.p);
@@ -122,6 +123,17 @@ export const BEHAVIOURS = {
       }
       for (const sid of [...ag.near.keys()]) if (!list.some((pl) => pl.sessionId === sid)) ag.near.delete(sid);
       return effects;
+    },
+  },
+  // the participant's FIELD OF INFLUENCE (dvengine DVField): resizable, bounded by the space extent − 1 —
+  // "a thing has to be separate from infinity to recognise it (infinity − 1), and the DeltaVerse recognised itself".
+  // While the field covers the agent it greets at the field's radius instead of 3 m; at the bound it recognises the participant.
+  field: {
+    event(ag, player, ev) {
+      if (ev.name !== 'field' || !ev.data) return [];
+      player.field = { r: ev.data.r, max: ev.data.max, at: ev.data.at || null, t: ag.now ? ag.now() : Date.now() };
+      if (ev.data.at === 'bound') { ag.face(player.p); return [ag.animate('raise', 1800), ag.speak('Your field reaches the edge of this space — one short of everything. The DeltaVerse recognises you, ' + (player.name || 'participant') + '.', 'joy', player.sessionId, 4000)]; }
+      return [];
     },
   },
   item: {

@@ -194,7 +194,7 @@
     const CLIENT_TYPES = ['hello', 'state', 'cmd', 'msg', 'event', 'ping', 'rtc', 'mirror', 'lost'];
     const SERVER_TYPES = ['welcome', 'denied', 'joined', 'left', 'snap', 'ack', 'msg', 'voucher', 'say', 'pong', 'error',
                                  'peers', 'host', 'repoint', 'rtc'];
-    const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus', 'item'];
+    const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus', 'item', 'field'];
     const ITEM_ACTIONS = ['use', 'raise', 'lower', 'select'];
     const GESTURES = ['smile', 'jawOpen', 'browsUp', 'nod', 'greet', 'wave', 'point', 'raise', 'bow'];
     const AVATAR_KINDS = ['aivatar', 'vrm', 'primitive'];
@@ -255,6 +255,7 @@
         if (m.name === 'gesture' && !GESTURES.includes(m.data.name)) return 'gesture name';
         if (m.name === 'focus' && !(m.data.agent === null || isId(m.data.agent))) return 'focus agent';
         if (m.name === 'item' && !(isStr(m.data.name, 32) && ITEM_ACTIONS.includes(m.data.action))) return 'item name/action';
+        if (m.name === 'field' && !(isNum(m.data.r) && m.data.r >= 0 && isNum(m.data.max) && m.data.r <= m.data.max)) return 'field r/max';
         if (m.name === 'portal' && !isId(m.data.to)) return 'portal to';
         if (m.name === 'reach' && !isId(m.data.zone)) return 'reach zone';
         if (m.name === 'riddle' && !isId(m.data.agent)) return 'riddle agent';
@@ -1256,7 +1257,8 @@
         update(ag, dt, list) {
           const effects = [];
           for (const pl of list) {
-            const d = v3.dist(ag.p, pl.p), was = ag.near.get(pl.sessionId) || false, now = d <= GREET_RANGE;
+            const reach = Math.max(GREET_RANGE, (pl.field && pl.field.r) || 0); // the participant's field of influence widens the greeting
+            const d = v3.dist(ag.p, pl.p), was = ag.near.get(pl.sessionId) || false, now = d <= reach;
             if (now && !was) {
               const idx = ag.indexOf(pl);
               ag.face(pl.p);
@@ -1267,6 +1269,17 @@
           }
           for (const sid of [...ag.near.keys()]) if (!list.some((pl) => pl.sessionId === sid)) ag.near.delete(sid);
           return effects;
+        },
+      },
+      // the participant's FIELD OF INFLUENCE (dvengine DVField): resizable, bounded by the space extent − 1 —
+      // "a thing has to be separate from infinity to recognise it (infinity − 1), and the DeltaVerse recognised itself".
+      // While the field covers the agent it greets at the field's radius instead of 3 m; at the bound it recognises the participant.
+      field: {
+        event(ag, player, ev) {
+          if (ev.name !== 'field' || !ev.data) return [];
+          player.field = { r: ev.data.r, max: ev.data.max, at: ev.data.at || null, t: ag.now ? ag.now() : Date.now() };
+          if (ev.data.at === 'bound') { ag.face(player.p); return [ag.animate('raise', 1800), ag.speak('Your field reaches the edge of this space — one short of everything. The DeltaVerse recognises you, ' + (player.name || 'participant') + '.', 'joy', player.sessionId, 4000)]; }
+          return [];
         },
       },
       item: {

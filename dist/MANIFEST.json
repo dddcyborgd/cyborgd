@@ -3,8 +3,8 @@
   "version": "0.0.1-alpha",
   "global": "CyborgdCore",
   "file": "cyborgd-core.js",
-  "bytes": 98152,
-  "sha256": "2de73f0ff4da23c1cbd31a135d8913238c633718db6633607c3fae916c862ad7",
+  "bytes": 99357,
+  "sha256": "386d4fe7d90f302c529bcce122345148ac7d9e973eb9064af5e273913cf36cd2",
   "modules": [
     {
       "name": "arcball",
@@ -43,7 +43,7 @@
     {
       "name": "protocol",
       "file": "core/protocol.mjs",
-      "sha256": "018134500adffc2b44bebf9384e7a986889ae447f4c736d6cddb4b5245e9ef39",
+      "sha256": "99515a7641fae39810613ef5793e9c608caf7d2df81c4f8b7905315133997293",
       "exports": [
         "VERSION",
         "INVALID_LIMIT",
@@ -178,7 +178,7 @@
     {
       "name": "aivatar",
       "file": "core/aivatar.mjs",
-      "sha256": "af013e236d5f7c933231cc01523525f6345465a61fdf56c750160d92847b381b",
+      "sha256": "8087d975082680f91b3073500c152088615dcf652d95596c50a7298e76d367a3",
       "exports": [
         "Riddler",
         "playerKeyOf",

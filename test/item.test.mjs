@@ -17,3 +17,7 @@ test('the new gestures are accepted and have an animation + a line', () => {
   }
   assert.ok(ITEM_LINES.raise.includes('{item}'));
 });
+test('field event: r within [0,max]; the bound is one short of everything', () => {
+  assert.equal(validate({ type: 'event', name: 'field', data: { r: 5, max: 69 } }).ok, true);
+  assert.equal(validate({ type: 'event', name: 'field', data: { r: 70, max: 69 } }).ok, false, 'a field cannot exceed its bound');
+});

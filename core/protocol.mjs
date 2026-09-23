@@ -23,7 +23,7 @@ export const MAX_SNAP_BYTES = 262144;
 export const CLIENT_TYPES = ['hello', 'state', 'cmd', 'msg', 'event', 'ping', 'rtc', 'mirror', 'lost'];
 export const SERVER_TYPES = ['welcome', 'denied', 'joined', 'left', 'snap', 'ack', 'msg', 'voucher', 'say', 'pong', 'error',
                              'peers', 'host', 'repoint', 'rtc'];
-export const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus', 'item'];
+export const EVENT_NAMES = ['portal', 'riddle', 'reach', 'gesture', 'focus', 'item', 'field'];
 export const ITEM_ACTIONS = ['use', 'raise', 'lower', 'select'];
 export const GESTURES = ['smile', 'jawOpen', 'browsUp', 'nod', 'greet', 'wave', 'point', 'raise', 'bow'];
 export const AVATAR_KINDS = ['aivatar', 'vrm', 'primitive'];
@@ -84,6 +84,7 @@ export const guards = {
     if (m.name === 'gesture' && !GESTURES.includes(m.data.name)) return 'gesture name';
     if (m.name === 'focus' && !(m.data.agent === null || isId(m.data.agent))) return 'focus agent';
     if (m.name === 'item' && !(isStr(m.data.name, 32) && ITEM_ACTIONS.includes(m.data.action))) return 'item name/action';
+    if (m.name === 'field' && !(isNum(m.data.r) && m.data.r >= 0 && isNum(m.data.max) && m.data.r <= m.data.max)) return 'field r/max';
     if (m.name === 'portal' && !isId(m.data.to)) return 'portal to';
     if (m.name === 'reach' && !isId(m.data.zone)) return 'reach zone';
     if (m.name === 'riddle' && !isId(m.data.agent)) return 'riddle agent';
